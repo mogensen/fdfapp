@@ -1,0 +1,6 @@
+- id: "class_membership.created.success"
+  translation: "ClassMembership was successfully created."
+- id: "class_membership.updated.success"
+  translation: "ClassMembership was successfully updated."
+- id: "class_membership.destroyed.success"
+  translation: "ClassMembership was successfully destroyed."

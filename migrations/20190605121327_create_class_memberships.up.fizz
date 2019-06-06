@@ -1,0 +1,6 @@
+create_table("class_memberships") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("class_id", "uuid", {})
+	t.Column("participant_id", "uuid", {})
+	t.Timestamps()
+}

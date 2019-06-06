@@ -1,0 +1,6 @@
+- id: "participant.created.success"
+  translation: "Participant was successfully created."
+- id: "participant.updated.success"
+  translation: "Participant was successfully updated."
+- id: "participant.destroyed.success"
+  translation: "Participant was successfully destroyed."

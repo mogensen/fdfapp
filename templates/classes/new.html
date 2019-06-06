@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>New Class</h1>
+</div>
+
+<%= formFor(class, {action: classesPath(), method: "POST"}) { %>
+  <%= partial("classes/form.html") %>
+  <%= linkTo(classesPath(), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
+<% } %>

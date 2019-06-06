@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>Participants</h1>
+</div>
+<ul class="list-unstyled list-inline">
+  <li>
+    <%= linkTo(newParticipantsPath(), {class: "btn btn-primary"}) { %>
+      Create New Participant
+    <% } %>
+  </li>
+</ul>
+
+<table class="table table-striped">
+  <thead>
+  <th>Name</th>
+    <th>Phone</th>
+    <th>DateOfBirth</th>
+    <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (participant) in participants { %>
+      <tr>
+      <td><%= participant.Name %></td>
+        <td><%= participant.Phone %></td>
+        <td><%= participant.DateOfBirth %></td>
+        <td>
+          <div class="pull-right">
+            <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-info", body: "View"}) %>
+            <%= linkTo(editParticipantPath({ participant_id: participant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+            <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginator(pagination) %>
+</div>

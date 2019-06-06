@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1>ClassMemberships</h1>
+</div>
+<ul class="list-unstyled list-inline">
+  <li>
+    <%= linkTo(newClassMembershipsPath(), {class: "btn btn-primary"}) { %>
+      Create New ClassMembership
+    <% } %>
+  </li>
+</ul>
+
+<table class="table table-striped">
+  <thead>
+  <th>ClassID</th>
+    <th>ParticipantID</th>
+    <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (classMembership) in classMemberships { %>
+      <tr>
+      <td><%= classMembership.ClassID %></td>
+        <td><%= classMembership.ParticipantID %></td>
+        <td>
+          <div class="pull-right">
+            <%= linkTo(classMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-info", body: "View"}) %>
+            <%= linkTo(editClassMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+            <%= linkTo(classMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginator(pagination) %>
+</div>
