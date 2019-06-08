@@ -1,24 +1,10 @@
 <div class="page-header">
-  <h1>ClassMembership#Show</h1>
+  <h1>Medlemskab</h1>
 </div>
 
-<ul class="list-unstyled list-inline">
-  <li class="list-inline-item">
-    <%= linkTo(classMembershipsPath(), {class: "btn btn-info"}) { %>
-      Back to all ClassMemberships
-    <% } %>
-  </li>
-  <li class="list-inline-item">
-    <%= linkTo(editClassMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-warning", body: "Edit"}) %>
-  </li>
-  <li class="list-inline-item">
-    <%= linkTo(classMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
-  </li>
-</ul>
-
 <p>
-  <strong>ClassID</strong>: <%= classMembership.ClassID %>
+  <strong>Medlem</strong>: <%= classMembership.Participant.Name %>
 </p>
 <p>
-  <strong>ParticipantID</strong>: <%= classMembership.ParticipantID %>
+  <strong>Klasse</strong>: <%= classMembership.Class.Name %>
 </p>

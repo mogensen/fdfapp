@@ -65,7 +65,7 @@ func (v ClassMembershipsResource) Show(c buffalo.Context) error {
 	classMembership := &models.ClassMembership{}
 
 	// To find the ClassMembership the parameter class_membership_id is used.
-	if err := tx.Find(classMembership, c.Param("class_membership_id")); err != nil {
+	if err := tx.Eager().Find(classMembership, c.Param("class_membership_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -75,16 +75,11 @@ func (v ClassMembershipsResource) Show(c buffalo.Context) error {
 // New renders the form for creating a new ClassMembership.
 // This function is mapped to the path GET /class_memberships/new
 func (v ClassMembershipsResource) New(c buffalo.Context) error {
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
-	if err := bindClasses(c, tx); err != nil {
+	if err := bindClasses(c); err != nil {
 		return errors.New("No Classes found")
 	}
 
-	if err := bindParticipants(c, tx); err != nil {
+	if err := bindParticipants(c); err != nil {
 		return errors.New("No Participants found")
 	}
 
@@ -123,10 +118,18 @@ func (v ClassMembershipsResource) Create(c buffalo.Context) error {
 		return c.Render(422, r.Auto(c, classMembership))
 	}
 
+	participant := &models.Participant{}
+
+	// To find the Participant the parameter participant_id is used.
+	if err := tx.Eager().Find(participant, classMembership.ParticipantID); err != nil {
+		return c.Error(404, err)
+	}
+
 	// If there are no errors set a success message
 	c.Flash().Add("success", T.Translate(c, "classMembership.created.success"))
 	// and redirect to the class_memberships index page
-	return c.Render(201, r.Auto(c, classMembership))
+	x := fmt.Sprintf("/participants/%s", classMembership.ParticipantID)
+	return c.Redirect(302, x)
 }
 
 // Edit renders a edit form for a ClassMembership. This function is
@@ -224,34 +227,6 @@ func (v ClassMembershipsResource) Destroy(c buffalo.Context) error {
 	// If there are no errors set a flash message
 	c.Flash().Add("success", T.Translate(c, "classMembership.destroyed.success"))
 	// Redirect to the class_memberships index page
-	return c.Render(200, r.Auto(c, classMembership))
-}
-
-func bindClasses(c buffalo.Context, tx *pop.Connection) error {
-	classes := &models.Classes{}
-
-	// Retrieve all Classes from the DB
-	if err := tx.All(classes); err != nil {
-		return err
-	}
-
-	c.Set("classes", classes)
-	return nil
-}
-
-func bindParticipants(c buffalo.Context, tx *pop.Connection) error {
-	participants := &models.Participants{}
-
-	// Retrieve all participants from the DB
-	if err := tx.All(participants); err != nil {
-		return err
-	}
-	// ps := make(map[string]interface{})
-	// for _, p := range *participants {
-	// 	ps[p.ID] = p.Name
-
-	// }
-
-	c.Set("participants", participants)
-	return nil
+	x := fmt.Sprintf("/participants/%s", classMembership.ParticipantID)
+	return c.Redirect(302, x)
 }

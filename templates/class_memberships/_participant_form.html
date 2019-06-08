@@ -1,0 +1,4 @@
+<%= f.SelectTag("ClassID", {"label": "Ny Klasse", options: classes, value: classMembership.ClassID, "allow_blank": true,"required":nil }) %>
+<%= f.HiddenTag("ParticipantID", {"label": "Participant", value: participantID, "allow_blank": false,"required":true }) %>
+
+<button class="btn btn-success" role="submit">Tilføj</button>

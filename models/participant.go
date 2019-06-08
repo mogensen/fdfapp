@@ -12,13 +12,14 @@ import (
 )
 
 type Participant struct {
-	ID          uuid.UUID  `json:"id" db:"id"`
-	CreatedAt   time.Time  `json:"created_at" db:"created_at"`
-	UpdatedAt   time.Time  `json:"updated_at" db:"updated_at"`
-	Name        string     `json:"name" db:"name"`
-	Phone       string     `json:"phone" db:"phone"`
-	DateOfBirth nulls.Time `json:"date_of_birth" db:"date_of_birth"`
-	Classes     Classes    `many_to_many:"class_memberships" db:"-"`
+	ID          uuid.UUID        `json:"id" db:"id"`
+	CreatedAt   time.Time        `json:"created_at" db:"created_at"`
+	UpdatedAt   time.Time        `json:"updated_at" db:"updated_at"`
+	Name        string           `json:"name" db:"name"`
+	Phone       string           `json:"phone" db:"phone"`
+	DateOfBirth nulls.Time       `json:"date_of_birth" db:"date_of_birth"`
+	Classes     Classes          `many_to_many:"class_memberships" db:"-"`
+	Memberships ClassMemberships `has_many:"class_memberships" db:"-"`
 }
 
 func (p Participant) SelectLabel() string {

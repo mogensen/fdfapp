@@ -1,13 +1,7 @@
+
 <div class="page-header">
-  <h1>Participants</h1>
+    <h1>Medlemmer</h1>
 </div>
-<ul class="list-unstyled list-inline">
-  <li>
-    <%= linkTo(newParticipantsPath(), {class: "btn btn-primary"}) { %>
-      Create New Participant
-    <% } %>
-  </li>
-</ul>
 
 <table class="table table-striped">
   <thead>
@@ -19,15 +13,16 @@
   <tbody>
     <%= for (participant) in participants { %>
       <tr>
-      <td><%= participant.Name %></td>
+      <td>
+          <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.Name}) %>
+
+      </td>
         <td><%= participant.Phone %></td>
         <td><%= participant.DateOfBirth %></td>
         <td>
-          <div class="pull-right">
-            <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-info", body: "View"}) %>
-            <%= linkTo(editParticipantPath({ participant_id: participant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
-            <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
-          </div>
+          <%= buttonGroup() { %>
+            <%= buttonGroupButton("edit", "pen", pathFor(editParticipantPath({ participant_id: participant.ID }))) %>
+          <% } %>
         </td>
       </tr>
     <% } %>
@@ -37,3 +32,12 @@
 <div class="text-center">
   <%= paginator(pagination) %>
 </div>
+
+
+<ul class="list-unstyled list-inline">
+    <li>
+      <%= linkTo(newParticipantsPath(), {class: "btn btn-primary"}) { %>
+        Opret nyt medlem
+      <% } %>
+    </li>
+  </ul>

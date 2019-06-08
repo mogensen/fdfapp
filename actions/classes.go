@@ -68,6 +68,8 @@ func (v ClassesResource) Show(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
+	c.Set("participant", &models.Participant{})
+
 	return c.Render(200, r.Auto(c, class))
 }
 

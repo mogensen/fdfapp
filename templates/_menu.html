@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <a class="navbar-brand" href="#">FDFapp V2</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item <%= isActive("rootPath") %>">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item <%= isActive("classesPath")  %>">
+                <a class="nav-link" href="/classes">Klasserne</a>
+            </li>
+            <li class="nav-item <%= isActive("participantsPath")  %>">
+                <a class="nav-link" href="/participants">Medlemmer</a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -68,12 +68,22 @@ func (v ParticipantsResource) Show(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
+	if err := bindClasses(c); err != nil {
+		return errors.New("No Classes found")
+	}
+	c.Set("classMembership", &models.ClassMembership{})
+
 	return c.Render(200, r.Auto(c, participant))
 }
 
 // New renders the form for creating a new Participant.
 // This function is mapped to the path GET /participants/new
 func (v ParticipantsResource) New(c buffalo.Context) error {
+
+	if err := bindClasses(c); err != nil {
+		return err
+	}
+
 	return c.Render(200, r.Auto(c, &models.Participant{}))
 }
 
@@ -88,6 +98,14 @@ func (v ParticipantsResource) Create(c buffalo.Context) error {
 		return err
 	}
 
+	// cID, err := uuid.FromString("70332de5-24e4-4862-8bc1-c99adf031d86")
+	// if err != nil {
+	// 	return err
+	// }
+	// participant.Classes = models.Classes{
+	// 	models.Class{ID: cID},
+	// }
+
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
 	if !ok {
@@ -95,7 +113,7 @@ func (v ParticipantsResource) Create(c buffalo.Context) error {
 	}
 
 	// Validate the data from the html form
-	verrs, err := tx.ValidateAndCreate(participant)
+	verrs, err := tx.Eager().ValidateAndCreate(participant)
 	if err != nil {
 		return err
 	}

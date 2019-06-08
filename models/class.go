@@ -12,12 +12,13 @@ import (
 )
 
 type Class struct {
-	ID           uuid.UUID    `json:"id" db:"id"`
-	CreatedAt    time.Time    `json:"created_at" db:"created_at"`
-	UpdatedAt    time.Time    `json:"updated_at" db:"updated_at"`
-	Name         string       `json:"name" db:"name"`
-	Calender     nulls.String `json:"calender" db:"calender"`
-	Participants Participants `many_to_many:"class_memberships" db:"-"`
+	ID           uuid.UUID        `json:"id" db:"id"`
+	CreatedAt    time.Time        `json:"created_at" db:"created_at"`
+	UpdatedAt    time.Time        `json:"updated_at" db:"updated_at"`
+	Name         string           `json:"name" db:"name"`
+	Calender     nulls.String     `json:"calender" db:"calender"`
+	Participants Participants     `many_to_many:"class_memberships" db:"-" order_by:"name asc"`
+	Memberships  ClassMemberships `has_many:"class_memberships" db:"-"`
 }
 
 func (c Class) SelectLabel() string {

@@ -2,27 +2,26 @@
 	min-width: 320px;
 }
 
-header {
-	background-color: #62a5ee;
-	padding: 10px 20px;
-	box-sizing: border-box;
-}
 
 .logo img {
 	width: 80px;
 }
 
-.titles h1 {
-	font-size: 30px;
-	font-weight: 300;
-	color: white;
+h1, h2, h3, h4, h5, h6 {
+	font-family: Lilita One,Helvetica,Arial,"sans-serif";
+}
+
+h1 {
+	font-weight: 400;
+	letter-spacing: 0.96px;
+	color: rgb(225, 83, 16);
 	margin-bottom: 13px;
 	margin-top: 5px;
 }
 
-.titles h2 {
-	font-weight: 300;
-	font-size: 18px;
+h2 {
+
+	color: rgb(69, 104, 137);
 	display: inline-block;
 	margin: 0;
 }

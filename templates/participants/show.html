@@ -1,13 +1,8 @@
 <div class="page-header">
-  <h1>Participant#Show</h1>
+  <h1><%= participant.Name %></h1>
 </div>
 
 <ul class="list-unstyled list-inline">
-  <li class="list-inline-item">
-    <%= linkTo(participantsPath(), {class: "btn btn-info"}) { %>
-      Back to all Participants
-    <% } %>
-  </li>
   <li class="list-inline-item">
     <%= linkTo(editParticipantPath({ participant_id: participant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
   </li>
@@ -17,11 +12,40 @@
 </ul>
 
 <p>
-  <strong>Name</strong>: <%= participant.Name %>
-</p>
-<p>
   <strong>Phone</strong>: <%= participant.Phone %>
 </p>
 <p>
   <strong>DateOfBirth</strong>: <%= participant.DateOfBirth %>
 </p>
+
+
+<table class="table table-striped">
+  <thead>
+    <th>Name</th>
+    <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (membership) in participant.Memberships { %>
+    <% let c = getClass(membership, classes)%>
+    <tr>
+      <td><%= c.Name %></td>
+      <td>
+        <span class="float-right">
+          <%= linkTo(classMembershipPath({ class_membership_id: membership.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Fjern fra klasse"}) %>
+        </span>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+
+
+<div class="page-header">
+  <h1>Tilføj til klasse</h1>
+</div>
+
+
+<%= form_for(classMembership, {action: classMembershipsPath(), method: "POST"}) { %>
+<%= partial("class_memberships/participant_form.html", {classMembership:classMembership, classes: classes, participantID: participant.ID}) %>
+<% } %>
