@@ -1,0 +1,8 @@
+create_table("activities") {
+	t.Column("id", "uuid", {primary: true})
+	t.Column("title", "string", {})
+	t.Column("duration", "decimal", {})
+	t.Column("date", "timestamp", {})
+	t.Column("class_id", "uuid", {})
+	t.Timestamps()
+}

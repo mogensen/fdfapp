@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1>ActivityParticipant#Show</h1>
+</div>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">
+    <%= linkTo(activityParticipantsPath(), {class: "btn btn-info"}) { %>
+      Back to all ActivityParticipants
+    <% } %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(editActivityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(activityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+  </li>
+</ul>
+
+<p>
+  <strong>ActivityID</strong>: <%= activityParticipant.ActivityID %>
+</p>
+<p>
+  <strong>ParticipantID</strong>: <%= activityParticipant.ParticipantID %>
+</p>

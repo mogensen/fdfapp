@@ -1,0 +1,32 @@
+<%= f.InputTag("Title") %>
+<%= f.InputTag("Duration") %>
+<%= f.InputTag("Date") %>
+<%= f.HiddenTag("ClassID", {"label": "Klasse", value: class.ID, "allow_blank": true,"required":nil }) %>
+
+<%= debug(activity.Participants) %> 
+
+<table class="table table-striped">
+    <thead>
+        <th>ClassID</th>
+        <th>ParticipantID</th>
+        <th>&nbsp;</th>
+    </thead>
+    <tbody>
+        <%= for (participant) in participants { %>
+        <tr>
+            <td>
+                <input 
+                <%= checkboxChecked(participant.ID, activity.Participants) %>
+                type="checkbox"
+                name="participants"
+                value="<%= participant.ID %>">
+            </td>
+
+            <td><%= participant.Name %></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+
+
+<button class="btn btn-success" role="submit">Save</button>

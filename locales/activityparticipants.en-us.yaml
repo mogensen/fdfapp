@@ -1,0 +1,6 @@
+- id: "activity_participant.created.success"
+  translation: "ActivityParticipant was successfully created."
+- id: "activity_participant.updated.success"
+  translation: "ActivityParticipant was successfully updated."
+- id: "activity_participant.destroyed.success"
+  translation: "ActivityParticipant was successfully destroyed."

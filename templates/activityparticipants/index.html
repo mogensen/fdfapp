@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1>ActivityParticipants</h1>
+</div>
+<ul class="list-unstyled list-inline">
+  <li>
+    <%= linkTo(newActivityParticipantsPath(), {class: "btn btn-primary"}) { %>
+      Create New ActivityParticipant
+    <% } %>
+  </li>
+</ul>
+
+<table class="table table-striped">
+  <thead>
+  <th>ActivityID</th>
+    <th>ParticipantID</th>
+    <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (activityParticipant) in activityParticipants { %>
+      <tr>
+      <td><%= activityParticipant.ActivityID %></td>
+        <td><%= activityParticipant.ParticipantID %></td>
+        <td>
+          <div class="pull-right">
+            <%= linkTo(activityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-info", body: "View"}) %>
+            <%= linkTo(editActivityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+            <%= linkTo(activityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginator(pagination) %>
+</div>

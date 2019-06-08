@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>Activity#Show</h1>
+</div>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">
+    <%= linkTo(activitiesPath(), {class: "btn btn-info"}) { %>
+      Back to all Activities
+    <% } %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(editActivityPath({ activity_id: activity.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(activityPath({ activity_id: activity.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+  </li>
+</ul>
+
+<p>
+  <strong>Title</strong>: <%= activity.Title %>
+</p>
+<p>
+  <strong>Duration</strong>: <%= activity.Duration %>
+</p>
+<p>
+  <strong>Date</strong>: <%= activity.Date %>
+</p>
+<p>
+  <strong>ClassID</strong>: <%= activity.Class.Name %>
+</p>
+
+
+
+<table class="table table-striped">
+  <thead>
+  <th>Name</th>
+   
+  </thead>
+  <tbody>
+    <%= for (participant) in activity.Participants { %>
+      <tr>
+      <td><%= participant.Name %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

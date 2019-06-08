@@ -10,6 +10,7 @@ import (
 	"github.com/gobuffalo/packr/v2"
 	"github.com/gobuffalo/plush"
 	"github.com/gobuffalo/tags"
+	"github.com/gofrs/uuid"
 	"github.com/mogensen/fdfapp/models"
 )
 
@@ -27,8 +28,16 @@ func init() {
 
 		// Add template helpers here:
 		Helpers: render.Helpers{
+			"checkboxChecked": func(id uuid.UUID, slice models.Participants) string {
+				for _, c := range slice {
+					if id == c.ID {
+						return "checked"
+					}
+				}
+				return ""
+			},
+
 			"isActive": func(name string, help plush.HelperContext) string {
-				fmt.Println(help.Value("current_route").(buffalo.RouteInfo))
 				if cp, ok := help.Value("current_route").(buffalo.RouteInfo); ok {
 					if strings.HasPrefix(cp.PathName, name) {
 						return "active"

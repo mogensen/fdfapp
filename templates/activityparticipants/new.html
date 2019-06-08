@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>New ActivityParticipant</h1>
+</div>
+
+<%= formFor(activityParticipant, {action: activityParticipantsPath(), method: "POST"}) { %>
+  <%= partial("activityparticipants/form.html") %>
+  <%= linkTo(activityParticipantsPath(), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
+<% } %>

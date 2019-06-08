@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>Edit Activity</h1>
+</div>
+
+<%= formFor(activity, {action: activityPath({ activity_id: activity.ID }), method: "PUT"}) { %>
+  <%= partial("activities/form.html", {activity: activity, participants: participants, class: class}) %>
+  <%= linkTo(activityPath({ activity_id: activity.ID }), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
+<% } %>
