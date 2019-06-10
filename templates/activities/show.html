@@ -1,46 +1,62 @@
 <div class="page-header">
-  <h1>Activity#Show</h1>
+  <h1>Aktivitets indberetning</h1>
 </div>
-
-<ul class="list-unstyled list-inline">
-  <li class="list-inline-item">
-    <%= linkTo(activitiesPath(), {class: "btn btn-info"}) { %>
-      Back to all Activities
-    <% } %>
-  </li>
-  <li class="list-inline-item">
-    <%= linkTo(editActivityPath({ activity_id: activity.ID }), {class: "btn btn-warning", body: "Edit"}) %>
-  </li>
-  <li class="list-inline-item">
-    <%= linkTo(activityPath({ activity_id: activity.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
-  </li>
-</ul>
-
-<p>
-  <strong>Title</strong>: <%= activity.Title %>
-</p>
-<p>
-  <strong>Duration</strong>: <%= activity.Duration %>
-</p>
-<p>
-  <strong>Date</strong>: <%= activity.Date %>
-</p>
-<p>
-  <strong>ClassID</strong>: <%= activity.Class.Name %>
-</p>
-
-
 
 <table class="table table-striped">
   <thead>
-  <th>Name</th>
-   
+
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= t("activity.title") %></td>
+      <td><%= activity.Title %></td>
+    </tr>
+    <tr>
+      <td><%= t("activity.duration") %></td>
+      <td><%= activity.Duration %></td>
+    </tr>
+    <tr>
+      <td><%= t("activity.date") %></td>
+      <td><%= activity.Date %></td>
+    </tr>
+    <tr>
+      <td><%= t("activity.class") %></td>
+      <td><%= activity.Class.Name %></td>
+    </tr>
+    <tr>
+      <td><%= t("activity.participantHours") %></td>
+      <td><%= partipantHoursA(activity) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Deltagere</h2>
+
+<table class="table table-striped">
+  <thead>
+    <th>Name</th>
+    <th>Telefon</th>
+    <th>Fødselsdato</th>
+
   </thead>
   <tbody>
     <%= for (participant) in activity.Participants { %>
-      <tr>
+    <tr>
       <td><%= participant.Name %></td>
-      </tr>
+
+      <td><a href="tel:<%= participant.Phone %>"><%= participant.Phone %></a></td>
+      <td><%= participant.DateOfBirth %></td>
+    </tr>
     <% } %>
   </tbody>
 </table>
+
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">
+    <%= linkTo(editActivityPath({ activity_id: activity.ID }), {class: "btn btn-warning", body: t("action.edit")}) %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(activityPath({ activity_id: activity.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: t("action.destroy")}) %>
+  </li>
+</ul>

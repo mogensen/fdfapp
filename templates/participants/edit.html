@@ -1,8 +1,8 @@
 <div class="page-header">
-  <h1>Edit Participant</h1>
+  <h1>Rediger medlem</h1>
 </div>
 
 <%= formFor(participant, {action: participantPath({ participant_id: participant.ID }), method: "PUT"}) { %>
-  <%= partial("participants/form.html") %>
+  <%= partial("participants/form.html", {participant: participant}) %>
   <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
 <% } %>

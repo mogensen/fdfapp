@@ -1,15 +1,13 @@
-<%= f.InputTag("Title") %>
-<%= f.InputTag("Duration") %>
-<%= f.InputTag("Date") %>
-<%= f.HiddenTag("ClassID", {"label": "Klasse", value: class.ID, "allow_blank": true,"required":nil }) %>
+<%= f.InputTag("Title", {label:t("activity.title")}) %>
+<%= f.InputTag("Duration", {label:t("activity.duration")}) %>
 
-<%= debug(activity.Participants) %> 
+<%= f.InputTag("Date", {type:"date", label:t("activity.date")}) %>
+<%= f.HiddenTag("ClassID") %>
 
 <table class="table table-striped">
     <thead>
-        <th>ClassID</th>
-        <th>ParticipantID</th>
         <th>&nbsp;</th>
+        <th><%= t("participant.name") %></th>
     </thead>
     <tbody>
         <%= for (participant) in participants { %>
@@ -29,4 +27,4 @@
 </table>
 
 
-<button class="btn btn-success" role="submit">Save</button>
+<button class="btn btn-success" role="submit"><%= t("action.save") %></button>

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop"
@@ -43,6 +44,18 @@ func (v ActivitiesResource) List(c buffalo.Context) error {
 	// Default values are "page=1" and "per_page=20".
 	q := tx.PaginateFromParams(c.Params())
 
+	if c.Param("class_id") != "" {
+		q = q.Where("class_id = (?)", c.Param("class_id"))
+
+		class := &models.Class{}
+
+		// Retrieve all participants from the DB
+		if err := tx.Eager().Find(class, c.Param("class_id")); err != nil {
+			return err
+		}
+		c.Set("class", class)
+	}
+
 	// Retrieve all Activities from the DB
 	if err := q.Eager().All(activities); err != nil {
 		return err
@@ -75,7 +88,7 @@ func (v ActivitiesResource) Show(c buffalo.Context) error {
 }
 
 // New renders the form for creating a new Activity.
-// This function is mapped to the path GET /activities/new/{class_id}
+// This function is mapped to the path GET /activities/new/
 func (v ActivitiesResource) New(c buffalo.Context) error {
 
 	tx, ok := c.Value("tx").(*pop.Connection)
@@ -91,7 +104,10 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 
 	c.Set("participants", class.Participants)
 	c.Set("class", class)
-	return c.Render(200, r.Auto(c, &models.Activity{}))
+	return c.Render(200, r.Auto(c, &models.Activity{
+		Date:    time.Now(),
+		ClassID: class.ID,
+	}))
 }
 
 // Create adds a Activity to the DB. This function is mapped to the

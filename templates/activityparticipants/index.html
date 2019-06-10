@@ -4,7 +4,7 @@
 <ul class="list-unstyled list-inline">
   <li>
     <%= linkTo(newActivityParticipantsPath(), {class: "btn btn-primary"}) { %>
-      Create New ActivityParticipant
+      <% t("participant.create") %>
     <% } %>
   </li>
 </ul>
@@ -23,8 +23,8 @@
         <td>
           <div class="pull-right">
             <%= linkTo(activityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-info", body: "View"}) %>
-            <%= linkTo(editActivityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
-            <%= linkTo(activityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+            <%= linkTo(editActivityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-warning", body: t("action.edit")}) %>
+            <%= linkTo(activityParticipantPath({ activity_participant_id: activityParticipant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: t("action.destroy")}) %>
           </div>
         </td>
       </tr>

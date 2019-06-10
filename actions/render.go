@@ -7,6 +7,7 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
+	"github.com/gobuffalo/nulls"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/gobuffalo/plush"
 	"github.com/gobuffalo/tags"
@@ -18,6 +19,8 @@ var r *render.Engine
 var assetsBox = packr.New("app:assets", "../public")
 
 func init() {
+	plush.DefaultTimeFormat = "02 Jan 2006"
+
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
@@ -28,6 +31,17 @@ func init() {
 
 		// Add template helpers here:
 		Helpers: render.Helpers{
+			"format": func(time nulls.Time, format string) string {
+				return time.Time.Format(format)
+			},
+			"partipantHoursA": func(activity *models.Activity) string {
+				hours := float64(len(activity.Participants)) * activity.Duration
+				return fmt.Sprintf("%.02f", hours)
+			},
+			"partipantHours": func(activity models.Activity) string {
+				hours := float64(len(activity.Participants)) * activity.Duration
+				return fmt.Sprintf("%.02f", hours)
+			},
 			"checkboxChecked": func(id uuid.UUID, slice models.Participants) string {
 				for _, c := range slice {
 					if id == c.ID {

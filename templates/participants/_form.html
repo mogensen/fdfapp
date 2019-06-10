@@ -1,4 +1,10 @@
-<%= f.InputTag("Name") %>
-<%= f.InputTag("Phone") %>
-<%= f.InputTag("DateOfBirth") %>
-<button class="btn btn-success" role="submit">Save</button>
+<%= f.InputTag("Name", {label: t("participant.name")}) %>
+<%= f.InputTag("Phone", {label: t("participant.phone")}) %>
+
+<%= if (participant.DateOfBirth && participant.DateOfBirth.Valid) { %>
+    <%= f.InputTag("DateOfBirth", {type:"date", value: participant.DateOfBirth.Time, min: "1900-01-01", label: t("participant.dateOfBirth")}) %>
+<% } else { %>
+    <%= f.InputTag("DateOfBirth", {type:"date", min: "1900-01-01", label: t("participant.dateOfBirth")}) %>
+<% } %>
+
+<button class="btn btn-success" role="submit"><%= t("action.save") %></button>

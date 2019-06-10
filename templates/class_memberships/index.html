@@ -23,8 +23,8 @@
         <td>
           <div class="pull-right">
             <%= linkTo(classMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-info", body: "View"}) %>
-            <%= linkTo(editClassMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-warning", body: "Edit"}) %>
-            <%= linkTo(classMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+            <%= linkTo(editClassMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-warning", body: t("action.edit")}) %>
+            <%= linkTo(classMembershipPath({ class_membership_id: classMembership.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: t("action.destroy")}) %>
           </div>
         </td>
       </tr>

@@ -4,18 +4,18 @@
 
 <ul class="list-unstyled list-inline">
   <li class="list-inline-item">
-    <%= linkTo(editParticipantPath({ participant_id: participant.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+    <%= linkTo(editParticipantPath({ participant_id: participant.ID }), {class: "btn btn-warning", body: t("action.edit")}) %>
   </li>
   <li class="list-inline-item">
-    <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+    <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: t("action.destroy")}) %>
   </li>
 </ul>
 
 <p>
-  <strong>Phone</strong>: <%= participant.Phone %>
+  <strong><%= t("participant.phone") %></strong>: <%= participant.Phone %>
 </p>
 <p>
-  <strong>DateOfBirth</strong>: <%= participant.DateOfBirth %>
+  <strong><%= t("participant.dateOfBirth") %></strong>: <%= participant.DateOfBirth %>
 </p>
 
 

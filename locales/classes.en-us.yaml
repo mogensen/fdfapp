@@ -1,6 +1,27 @@
+# Flash mesasges
 - id: "class.created.success"
   translation: "Class was successfully created."
 - id: "class.updated.success"
   translation: "Class was successfully updated."
 - id: "class.destroyed.success"
   translation: "Class was successfully destroyed."
+
+#Actions
+- id: "class.create"
+  translation: "Opret ny klasse"
+
+#Fields
+- id: "class.iD"
+  translation: "iD"
+- id: "class.createdAt"
+  translation: "Oprettet"
+- id: "class.updatedAt"
+  translation: "Opdateret"
+- id: "class.name"
+  translation: "Navn"
+- id: "class.calender"
+  translation: "Kalender link"
+- id: "class.participants"
+  translation: "Deltagere"
+- id: "class.memberships"
+  translation: "Medlemskab"

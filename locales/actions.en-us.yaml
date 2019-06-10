@@ -1,0 +1,16 @@
+- id: "action.edit"
+  translation: "Rediger"
+
+- id: "action.save"
+  translation: "Gem"
+
+- id: "action.destroy"
+  translation: "Slet"
+
+
+- id: "action.createActivity"
+  translation: "Indberet"
+- id: "action.showActivities"
+  translation: "Aktiviteter"
+- id: "action.activityStatus"
+  translation: "Status"

@@ -3,17 +3,16 @@
 </div>
 
 <p>
-  <strong>Calender</strong>: <%= class.Calender %>
+  <strong><%= t("class.calender") %></strong>: <%= class.Calender %>
 </p>
 
 
 <table class="table table-striped">
   <thead>
-  <th>Name</th>
-    <th>Phone</th>
-    <th>DateOfBirth</th>
-    <th>&nbsp;</th>
-  </thead>
+    <th><%= t("participant.name")} %></th>
+    <th><%= t("participant.phone")} %></th>
+    <th><%= t("participant.dateOfBirth")} %></th>
+    </thead>
   <tbody>
     <%= for (participant) in class.Participants { %>
       <tr>

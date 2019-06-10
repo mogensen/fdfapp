@@ -5,9 +5,9 @@
 
 <table class="table table-striped">
   <thead>
-  <th>Name</th>
-    <th>Phone</th>
-    <th>DateOfBirth</th>
+    <th><%= t("participant.name")} %></th>
+    <th><%= t("participant.phone")} %></th>
+    <th><%= t("participant.dateOfBirth")} %></th>
     <th>&nbsp;</th>
   </thead>
   <tbody>
@@ -21,7 +21,7 @@
         <td><%= participant.DateOfBirth %></td>
         <td>
           <%= buttonGroup() { %>
-            <%= buttonGroupButton("edit", "pen", pathFor(editParticipantPath({ participant_id: participant.ID }))) %>
+            <%= buttonGroupButton(t("action.edit"), "pen", pathFor(editParticipantPath({ participant_id: participant.ID }))) %>
           <% } %>
         </td>
       </tr>

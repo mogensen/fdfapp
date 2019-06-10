@@ -4,7 +4,7 @@
 
 <table class="table table-striped">
   <thead>
-  <th>Name</th>
+    <th><%= t("class.name")} %></th>
     <th>&nbsp;</th>
   </thead>
   <tbody>
@@ -17,10 +17,10 @@
         <td>
 
             <%= buttonGroup() { %>
-              <%= buttonGroupButton("Edit", "pen", pathFor(editClassPath({ class_id: class.ID }))) %>
-              <%= buttonGroupButton("Indberet", "plus", pathFor(editClassPath({ class_id: class.ID }))) %>
-              <%= buttonGroupButton("Aktiviteter", "exclamation", pathFor(editClassPath({ class_id: class.ID }))) %>
-              <%= buttonGroupButton("Status", "exclamation", pathFor(editClassPath({ class_id: class.ID }))) %>
+              <%= buttonGroupButton(t("action.edit"), "pen", pathFor(editClassPath({ class_id: class.ID }))) %>
+              <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
+              <%= buttonGroupButton(t("action.showActivities"), "exclamation", pathFor(activitiesPath({ class_id: class.ID }))) %>
+              <%= buttonGroupButton(t("action.activityStatus"), "exclamation", pathFor(editClassPath({ class_id: class.ID }))) %>
             <% } %>
 
         </td>
@@ -35,7 +35,7 @@
 <ul class="list-unstyled list-inline">
     <li>
       <%= linkTo(newClassesPath(), {class: "btn btn-primary"}) { %>
-        Create New Class
+        <%= t("class.create")
       <% } %>
     </li>
   </ul>
