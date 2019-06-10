@@ -1,34 +1,37 @@
 <div class="page-header">
   <%= if (class) { %>
-    <h1><%= class.Name %> Aktiviteter</h1>
-  <% } else { %>  
-    <h1>Alle Aktiviteter</h1>
+  <h1><%= class.Name %> Aktiviteter</h1>
+  <% } else { %>
+  <h1>Alle Aktiviteter</h1>
   <% } %>
-  
+
 </div>
 
 <table class="table table-striped">
   <thead>
-    <th><%= t("activity.class")} %></th>
-      <th><%= t("activity.date") %></th>
-      <th><%= t("activity.duration") %></th>
-      <th><%= t("activity.participants") %></th>
-      <th><%= t("activity.participantHours") %></th>
-    <th>&nbsp;</th>
+
+    <th><%= t("activity.date") %></th>
+    <th><%= t("activity.duration") %></th>
+    <th><%= t("activity.participants") %></th>
+    <th><%= t("activity.participantHours") %></th>
   </thead>
   <tbody>
     <%= for (activity) in activities { %>
     <tr>
-        <td><%= activity.Class.Name %></td>
-        <td><%= activity.Date %></td>
+      <td colspan=6>
+        <%= if (class) { %>
+          <%= linkTo(activityPath({ activity_id: activity.ID }), {body: activity.Title}) %>
+        <% } else { %>
+          <%= linkTo(activityPath({ activity_id: activity.ID }), {body: activity.Class.Name + " - " + activity.Title}) %>
+        <% } %>
+      </td>
+    </tr>
+    <tr>
+
+      <td><%= activity.Date %></td>
       <td><%= activity.Duration %></td>
       <td><%= len(activity.Participants) %></td>
       <td><%= partipantHours(activity) %></td>
-      <td>
-        <div class="pull-right">
-          <%= linkTo(activityPath({ activity_id: activity.ID }), {body: "Vis"}) %>
-        </div>
-      </td>
     </tr>
     <% } %>
   </tbody>

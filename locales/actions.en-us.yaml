@@ -7,6 +7,8 @@
 - id: "action.destroy"
   translation: "Slet"
 
+- id: "action.show"
+  translation: "Vis"
 
 - id: "action.createActivity"
   translation: "Indberet"
