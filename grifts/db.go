@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/dimchansky/utfbom"
+	"github.com/gobuffalo/nulls"
 
-	"github.com/gobuffalo/pop/nulls"
 	"github.com/gocarina/gocsv"
 	"github.com/markbates/grift/grift"
 	"github.com/mogensen/fdfapp/models"
@@ -121,7 +121,7 @@ type CsvParticipant struct {
 	Class        string   `csv:"Klasse"`
 }
 
-// Convert the CSV string as internal date
+// UnmarshalCSV converts the CSV string as internal date
 func (date *DateTime) UnmarshalCSV(csv string) (err error) {
 	date.Time, err = time.Parse("02-01-2006", csv)
 	return err
