@@ -1,0 +1,6 @@
+- id: "participants_upload.created.success"
+  translation: "ParticipantsUpload was successfully created."
+- id: "participants_upload.updated.success"
+  translation: "ParticipantsUpload was successfully updated."
+- id: "participants_upload.destroyed.success"
+  translation: "ParticipantsUpload was successfully destroyed."

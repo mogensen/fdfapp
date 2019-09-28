@@ -54,7 +54,6 @@ func (p *Participant) Validate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.Validate(
 		&validators.StringIsPresent{Field: p.FirstName, Name: "FirstName"},
 		&validators.StringIsPresent{Field: p.LastName, Name: "LastName"},
-		&validators.StringIsPresent{Field: p.Phone, Name: "Phone"},
 	), nil
 }
 

@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>Upload medlemmer fra Carla</h1>
+</div>
+
+<div class="alert alert-danger" role="alert">
+    Brug kun denne funktion hvis du allerede har medlemsnummer på alle medlemmer her i FDFapp'en.
+    Hvis du ikke har det, vil det resultere i duplikater af medlemmerne.
+</div>
+
+<p>
+  Gå til Carla og download det dataudtræk der hedder "Alle medlemmer" i CSV format.
+  Upload resultetet nedenfor.
+</p>
+<p>
+  Alle medlemmer matches på medlemsnummer
+  <ul>
+    <li>medlemmer der ikke allerede findes oprettes i den rette klasse.</li>
+    <li>medlemmer hvor klassen ikke findes oprettes ikke.</li>
+    <!-- <li>medlemmer der allerede findes flyttes til den klasse der står i carla.</li> -->
+  </ul>
+</p>
+<hr>
+
+<%= formFor(participantsUpload, {action: participantsUploadsPath(), method: "POST"}) { %>
+  <%= f.FileTag("carlaCsvAlleMedlemmer") %>
+  <button class="btn btn-success" role="submit">Upload</button>
+<% } %>
