@@ -1,5 +1,6 @@
 create_table("classes") {
 	t.Column("id", "uuid", {primary: true})
+	t.Column("user_id", "uuid", {})
 	t.Column("name", "string", {})
 	t.Column("calendar", "string", {null: true})
 	t.Timestamps()

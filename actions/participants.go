@@ -28,17 +28,11 @@ type ParticipantsResource struct {
 // List gets all Participants. This function is mapped to the path
 // GET /participants
 func (v ParticipantsResource) List(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	participants := &models.Participants{}
 
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
-	q := tx.PaginateFromParams(c.Params())
+	q := scope(c).PaginateFromParams(c.Params())
 
 	// Retrieve all Participants from the DB
 	if err := q.All(participants); err != nil {
@@ -54,17 +48,11 @@ func (v ParticipantsResource) List(c buffalo.Context) error {
 // Show gets the data for one Participant. This function is mapped to
 // the path GET /participants/{participant_id}
 func (v ParticipantsResource) Show(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	// Allocate an empty Participant
 	participant := &models.Participant{}
 
 	// To find the Participant the parameter participant_id is used.
-	if err := tx.Eager().Find(participant, c.Param("participant_id")); err != nil {
+	if err := scope(c).Eager().Find(participant, c.Param("participant_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -97,14 +85,7 @@ func (v ParticipantsResource) Create(c buffalo.Context) error {
 	if err := c.Bind(participant); err != nil {
 		return err
 	}
-
-	// cID, err := uuid.FromString("70332de5-24e4-4862-8bc1-c99adf031d86")
-	// if err != nil {
-	// 	return err
-	// }
-	// participant.Classes = models.Classes{
-	// 	models.Class{ID: cID},
-	// }
+	participant.UserID = currentUser(c).ID
 
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
@@ -136,16 +117,10 @@ func (v ParticipantsResource) Create(c buffalo.Context) error {
 // Edit renders a edit form for a Participant. This function is
 // mapped to the path GET /participants/{participant_id}/edit
 func (v ParticipantsResource) Edit(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	// Allocate an empty Participant
 	participant := &models.Participant{}
 
-	if err := tx.Find(participant, c.Param("participant_id")); err != nil {
+	if err := scope(c).Find(participant, c.Param("participant_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -164,7 +139,7 @@ func (v ParticipantsResource) Update(c buffalo.Context) error {
 	// Allocate an empty Participant
 	participant := &models.Participant{}
 
-	if err := tx.Find(participant, c.Param("participant_id")); err != nil {
+	if err := scope(c).Find(participant, c.Param("participant_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -172,6 +147,8 @@ func (v ParticipantsResource) Update(c buffalo.Context) error {
 	if err := c.Bind(participant); err != nil {
 		return err
 	}
+	// Make sure that the userid is not overriden by the Bind call
+	participant.UserID = currentUser(c).ID
 
 	verrs, err := tx.ValidateAndUpdate(participant)
 	if err != nil {
@@ -206,7 +183,7 @@ func (v ParticipantsResource) Destroy(c buffalo.Context) error {
 	participant := &models.Participant{}
 
 	// To find the Participant the parameter participant_id is used.
-	if err := tx.Find(participant, c.Param("participant_id")); err != nil {
+	if err := scope(c).Find(participant, c.Param("participant_id")); err != nil {
 		return c.Error(404, err)
 	}
 

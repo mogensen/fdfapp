@@ -1,6 +1,7 @@
 package grifts
 
 import (
+	"bufio"
 	"encoding/csv"
 	"fmt"
 	"io"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/dimchansky/utfbom"
 	"github.com/gobuffalo/nulls"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/gocarina/gocsv"
 	"github.com/markbates/grift/grift"
@@ -19,20 +21,76 @@ import (
 
 var _ = grift.Namespace("db", func() {
 
+	grift.Desc("truncate", "truncates a database")
+	grift.Add("truncate", func(c *grift.Context) error {
+		s := read("This will truncate the database!!! Are you sure? (y/N): ")
+
+		if s == "y" || s == "yes" {
+			// Add DB seeding stuff here
+			if err := models.DB.TruncateAll(); err != nil {
+				return errors.WithStack(err)
+			}
+		}
+		return nil
+	})
+
 	grift.Desc("seed", "Seeds a database")
 	grift.Add("seed", func(c *grift.Context) error {
-		// Add DB seeding stuff here
-		if err := models.DB.TruncateAll(); err != nil {
+
+		username := read("Username")
+		ph, err := bcrypt.GenerateFromPassword([]byte(read("Password")), bcrypt.DefaultCost)
+		if err != nil {
+			return err
+		}
+		user := models.User{
+			Username:     username,
+			PasswordHash: string(ph),
+		}
+		if err := models.DB.Create(&user); err != nil {
 			return errors.WithStack(err)
 		}
+
 		classes := models.Classes{
-			// {Name: "Numlinge"},
-			// {Name: "Puslinge"},
-			{Name: "Tumling", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_l5f2o8l8cbitivjsdclle5bm3k%40group.calendar.google.com/public/basic.ics")},
-			{Name: "Pilt", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_omj54ddubl3k4olhvq0395a99g%40group.calendar.google.com/public/basic.ics")},
-			{Name: "Væbner", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_4qqn55n1v17thq0r08lb4g3i3o%40group.calendar.google.com/public/basic.ics")},
-			{Name: "Seniorvæbner", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_76iisk34btll39hhkn1q0vu38s%40group.calendar.google.com/public/basic.ics")},
-			{Name: "Senior", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_vmqn2cdcp1pcaa1g9lqqeu75d8%40group.calendar.google.com/public/basic.ics")},
+			{UserID: user.ID, Name: "Puslinge"},
+			{UserID: user.ID, Name: "Tumling"},
+			{UserID: user.ID, Name: "Pilt"},
+			{UserID: user.ID, Name: "Væbner"},
+			{UserID: user.ID, Name: "Seniorvæbner"},
+			{UserID: user.ID, Name: "Senior"},
+		}
+
+		for _, m := range classes {
+			if err := models.DB.Create(&m); err != nil {
+				return errors.WithStack(err)
+			}
+		}
+
+		return nil
+	})
+
+	grift.Desc("fdfaa4", "fdfaa4 a database")
+	grift.Add("fdfaa4", func(c *grift.Context) error {
+
+		username := "fdfaa4"
+		ph, err := bcrypt.GenerateFromPassword([]byte(read("Password")), bcrypt.DefaultCost)
+		if err != nil {
+			return err
+		}
+		user := models.User{
+			Username:     username,
+			PasswordHash: string(ph),
+		}
+		if err := models.DB.Create(&user); err != nil {
+			return errors.WithStack(err)
+		}
+
+		classes := models.Classes{
+			{UserID: user.ID, Name: "Puslinge", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_l5f2o8l8cbitivjsdclle5bm3k%40group.calendar.google.com/public/basic.ics")},
+			{UserID: user.ID, Name: "Tumling", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_l5f2o8l8cbitivjsdclle5bm3k%40group.calendar.google.com/public/basic.ics")},
+			{UserID: user.ID, Name: "Pilt", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_omj54ddubl3k4olhvq0395a99g%40group.calendar.google.com/public/basic.ics")},
+			{UserID: user.ID, Name: "Væbner", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_4qqn55n1v17thq0r08lb4g3i3o%40group.calendar.google.com/public/basic.ics")},
+			{UserID: user.ID, Name: "Seniorvæbner", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_76iisk34btll39hhkn1q0vu38s%40group.calendar.google.com/public/basic.ics")},
+			{UserID: user.ID, Name: "Senior", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_vmqn2cdcp1pcaa1g9lqqeu75d8%40group.calendar.google.com/public/basic.ics")},
 		}
 
 		for _, m := range classes {
@@ -106,6 +164,15 @@ var _ = grift.Namespace("db", func() {
 	})
 
 })
+
+func read(info string) string {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print(info + ": ")
+	text, _ := reader.ReadString('\n')
+	fmt.Println(text)
+	text = strings.TrimSuffix(text, "\n")
+	return text
+}
 
 type DateTime struct {
 	time.Time

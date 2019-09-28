@@ -1,5 +1,6 @@
 create_table("participants") {
 	t.Column("id", "uuid", {primary: true})
+	t.Column("user_id", "uuid", {})
 	t.Column("member_number", "string", {})
 	t.Column("first_name", "string", {})
 	t.Column("last_name", "string", {})

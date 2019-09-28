@@ -13,6 +13,7 @@ import (
 
 type Participant struct {
 	ID           uuid.UUID        `json:"id" db:"id"`
+	UserID       uuid.UUID        `db:"user_id"`
 	MemberNumber string           `json:"member_number" db:"member_number"`
 	CreatedAt    time.Time        `json:"created_at" db:"created_at"`
 	UpdatedAt    time.Time        `json:"updated_at" db:"updated_at"`

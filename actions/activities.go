@@ -32,17 +32,11 @@ type ActivitiesResource struct {
 // List gets all Activities. This function is mapped to the path
 // GET /activities
 func (v ActivitiesResource) List(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	activities := &models.Activities{}
 
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
-	q := tx.PaginateFromParams(c.Params())
+	q := scope(c).PaginateFromParams(c.Params())
 
 	if c.Param("class_id") != "" {
 		q = q.Where("class_id = (?)", c.Param("class_id"))
@@ -50,7 +44,7 @@ func (v ActivitiesResource) List(c buffalo.Context) error {
 		class := &models.Class{}
 
 		// Retrieve all participants from the DB
-		if err := tx.Eager().Find(class, c.Param("class_id")); err != nil {
+		if err := scope(c).Eager().Find(class, c.Param("class_id")); err != nil {
 			return err
 		}
 		c.Set("class", class)
@@ -70,17 +64,11 @@ func (v ActivitiesResource) List(c buffalo.Context) error {
 // Show gets the data for one Activity. This function is mapped to
 // the path GET /activities/{activity_id}
 func (v ActivitiesResource) Show(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	// Allocate an empty Activity
 	activity := &models.Activity{}
 
 	// To find the Activity the parameter activity_id is used.
-	if err := tx.Eager().Find(activity, c.Param("activity_id")); err != nil {
+	if err := scope(c).Eager().Find(activity, c.Param("activity_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -90,11 +78,6 @@ func (v ActivitiesResource) Show(c buffalo.Context) error {
 // New renders the form for creating a new Activity.
 // This function is mapped to the path GET /activities/new/
 func (v ActivitiesResource) New(c buffalo.Context) error {
-
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
 	var err error
 	date := time.Time{}
 	if c.Param("date") != "" {
@@ -109,7 +92,7 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 	class := &models.Class{}
 
 	// Retrieve all participants from the DB
-	if err := tx.Eager().Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Eager().Find(class, c.Param("class_id")); err != nil {
 		return err
 	}
 
@@ -132,6 +115,7 @@ func (v ActivitiesResource) Create(c buffalo.Context) error {
 	if err := c.Bind(activity); err != nil {
 		return err
 	}
+	activity.UserID = currentUser(c).ID
 
 	participants := models.Participants{}
 	for _, participantID := range c.Request().Form["participants"] {
@@ -177,23 +161,18 @@ func (v ActivitiesResource) Create(c buffalo.Context) error {
 // Edit renders a edit form for a Activity. This function is
 // mapped to the path GET /activities/{activity_id}/edit
 func (v ActivitiesResource) Edit(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
 
 	// Allocate an empty Activity
 	activity := &models.Activity{}
 
-	if err := tx.Eager().Find(activity, c.Param("activity_id")); err != nil {
+	if err := scope(c).Eager().Find(activity, c.Param("activity_id")); err != nil {
 		return c.Error(404, err)
 	}
 
 	class := &models.Class{}
 
 	// Retrieve all participants from the DB
-	if err := tx.Eager().Find(class, activity.ClassID); err != nil {
+	if err := scope(c).Eager().Find(class, activity.ClassID); err != nil {
 		return err
 	}
 
@@ -215,7 +194,7 @@ func (v ActivitiesResource) Update(c buffalo.Context) error {
 	// Allocate an empty Activity
 	activity := &models.Activity{}
 
-	if err := tx.Find(activity, c.Param("activity_id")); err != nil {
+	if err := scope(c).Find(activity, c.Param("activity_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -223,6 +202,7 @@ func (v ActivitiesResource) Update(c buffalo.Context) error {
 	if err := c.Bind(activity); err != nil {
 		return err
 	}
+	activity.UserID = currentUser(c).ID
 
 	if err := removeAllActivityParticipants(*activity, tx); err != nil {
 		return fmt.Errorf("Failed removing activityParticipants: %v", err)
@@ -267,7 +247,7 @@ func removeAllActivityParticipants(activity models.Activity, tx *pop.Connection)
 
 	activityParticipants := &models.ActivityParticipants{}
 
-	err := tx.Where("activity_id = '" + activity.ID.String() + "'").All(activityParticipants)
+	err := tx.Where("activity_id = ?", activity.ID).All(activityParticipants)
 	if err != nil {
 		return err
 	}
@@ -292,7 +272,7 @@ func (v ActivitiesResource) Destroy(c buffalo.Context) error {
 	activity := &models.Activity{}
 
 	// To find the Activity the parameter activity_id is used.
-	if err := tx.Find(activity, c.Param("activity_id")); err != nil {
+	if err := scope(c).Find(activity, c.Param("activity_id")); err != nil {
 		return c.Error(404, err)
 	}
 

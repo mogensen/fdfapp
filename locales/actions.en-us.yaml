@@ -16,3 +16,8 @@
   translation: "Aktiviteter"
 - id: "action.activityStatus"
   translation: "Status"
+
+- id: auth.login.success
+  translation: "Velkommen til fremmøde app'en."
+- id: auth.logout.success
+  translation: "Du er nu logget ud."

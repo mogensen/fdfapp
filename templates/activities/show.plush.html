@@ -42,7 +42,7 @@
   <tbody>
     <%= for (participant) in activity.Participants { %>
     <tr>
-      <td><%= participant.Name %></td>
+      <td><%= participant.FirstName %> <%= participant.LastName %></td>
 
       <td><a href="tel:<%= participant.Phone %>"><%= participant.Phone %></a></td>
       <td><%= participant.DateOfBirth %></td>

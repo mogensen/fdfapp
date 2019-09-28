@@ -1,7 +1,6 @@
 package actions
 
 import (
-	"errors"
 	"io"
 	"net/http"
 	"sort"
@@ -9,23 +8,16 @@ import (
 
 	"github.com/apognu/gocal"
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/pop"
 	"github.com/mogensen/fdfapp/models"
 )
 
 // CalendarShow default implementation.
 func CalendarShow(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	// Allocate an empty Class
 	class := &models.Class{}
 
 	// To find the Class the parameter class_id is used.
-	if err := tx.Eager().Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Eager().Find(class, c.Param("class_id")); err != nil {
 		return c.Error(404, err)
 	}
 

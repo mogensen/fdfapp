@@ -58,15 +58,24 @@ func App() *buffalo.App {
 		// Setup and use translations:
 		app.Use(translations())
 
+		// Setup Auth
+		app.Use(SetCurrentUser)
+		app.Use(Authorize)
+
 		app.GET("/", HomeHandler)
 
-		app.Resource("/users", UsersResource{})
 		app.Resource("/participants", ParticipantsResource{})
 		app.Resource("/classes", ClassesResource{})
 		app.Resource("/class_memberships", ClassMembershipsResource{})
 		app.Resource("/activities", ActivitiesResource{})
-		app.Resource("/activity_participants", ActivityParticipantsResource{})
 		app.GET("/calendar/show/{class_id}", CalendarShow)
+
+		app.GET("/users/new", UsersNew)
+		app.POST("/users", UsersCreate)
+		app.GET("/signin", AuthNew)
+		app.POST("/signin", AuthCreate)
+		app.DELETE("/signout", AuthDestroy)
+		app.Middleware.Skip(Authorize, HomeHandler, UsersNew, UsersCreate, AuthNew, AuthCreate)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 

@@ -29,16 +29,12 @@ type ClassesResource struct {
 // GET /classes
 func (v ClassesResource) List(c buffalo.Context) error {
 	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
 
 	classes := &models.Classes{}
 
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
-	q := tx.PaginateFromParams(c.Params())
+	q := scope(c).PaginateFromParams(c.Params())
 
 	// Retrieve all Classes from the DB
 	if err := q.All(classes); err != nil {
@@ -54,17 +50,11 @@ func (v ClassesResource) List(c buffalo.Context) error {
 // Show gets the data for one Class. This function is mapped to
 // the path GET /classes/{class_id}
 func (v ClassesResource) Show(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	// Allocate an empty Class
 	class := &models.Class{}
 
 	// To find the Class the parameter class_id is used.
-	if err := tx.Eager().Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Eager().Find(class, c.Param("class_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -89,6 +79,7 @@ func (v ClassesResource) Create(c buffalo.Context) error {
 	if err := c.Bind(class); err != nil {
 		return err
 	}
+	class.UserID = currentUser(c).ID
 
 	// Get the DB connection from the context
 	tx, ok := c.Value("tx").(*pop.Connection)
@@ -121,16 +112,10 @@ func (v ClassesResource) Create(c buffalo.Context) error {
 // Edit renders a edit form for a Class. This function is
 // mapped to the path GET /classes/{class_id}/edit
 func (v ClassesResource) Edit(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
 	// Allocate an empty Class
 	class := &models.Class{}
 
-	if err := tx.Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Find(class, c.Param("class_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -149,7 +134,7 @@ func (v ClassesResource) Update(c buffalo.Context) error {
 	// Allocate an empty Class
 	class := &models.Class{}
 
-	if err := tx.Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Find(class, c.Param("class_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -157,6 +142,8 @@ func (v ClassesResource) Update(c buffalo.Context) error {
 	if err := c.Bind(class); err != nil {
 		return err
 	}
+	// Make sure that the userid is not overriden by the Bind call
+	class.UserID = currentUser(c).ID
 
 	verrs, err := tx.ValidateAndUpdate(class)
 	if err != nil {
@@ -192,7 +179,7 @@ func (v ClassesResource) Destroy(c buffalo.Context) error {
 	class := &models.Class{}
 
 	// To find the Class the parameter class_id is used.
-	if err := tx.Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Find(class, c.Param("class_id")); err != nil {
 		return c.Error(404, err)
 	}
 
