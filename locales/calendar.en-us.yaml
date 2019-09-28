@@ -1,0 +1,6 @@
+- id: "calendar.start"
+  translation: Dato
+- id: "calendar.name"
+  translation: Aktivitet
+- id: "calendar.location"
+  translation: Sted

@@ -95,6 +95,17 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 	if !ok {
 		return errors.New("no transaction found")
 	}
+	var err error
+	date := time.Time{}
+	if c.Param("date") != "" {
+		date, err = time.Parse("2006-01-02 15:04:05 -0700 MST", c.Param("date"))
+		if err != nil {
+			return err
+		}
+	} else {
+		date = time.Now()
+	}
+
 	class := &models.Class{}
 
 	// Retrieve all participants from the DB
@@ -105,8 +116,9 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 	c.Set("participants", class.Participants)
 	c.Set("class", class)
 	return c.Render(200, r.Auto(c, &models.Activity{
-		Date:    time.Now(),
+		Date:    date,
 		ClassID: class.ID,
+		Title:   c.Param("title"),
 	}))
 }
 

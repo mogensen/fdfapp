@@ -1,6 +1,8 @@
 create_table("participants") {
 	t.Column("id", "uuid", {primary: true})
-	t.Column("name", "string", {})
+	t.Column("member_number", "string", {})
+	t.Column("first_name", "string", {})
+	t.Column("last_name", "string", {})
 	t.Column("phone", "string", {})
 	t.Column("date_of_birth", "timestamp", {null: true})
 	t.Timestamps()

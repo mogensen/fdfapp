@@ -3,7 +3,7 @@
 </div>
 
 <p>
-  <strong><%= t("class.calender") %></strong>: <%= class.Calender %>
+  <strong><%= t("class.calendar") %></strong>: <%= class.Calendar %>
 </p>
 
 
@@ -17,7 +17,7 @@
     <%= for (participant) in class.Participants { %>
       <tr>
       <td>
-        <%= linkTo(participantPath({ participant_id: participant.ID }), {body: participant.Name}) %>
+        <%= linkTo(participantPath({ participant_id: participant.ID }), {body: participant.FirstName + " " + participant.LastName}) %>
       </td>
         <td><%= participant.Phone %></td>
         <td><%= participant.DateOfBirth %></td>

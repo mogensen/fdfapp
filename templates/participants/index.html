@@ -14,8 +14,7 @@
     <%= for (participant) in participants { %>
       <tr>
       <td>
-          <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.Name}) %>
-
+          <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
       </td>
         <td><%= participant.Phone %></td>
         <td><%= participant.DateOfBirth %></td>

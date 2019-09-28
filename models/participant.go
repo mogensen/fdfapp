@@ -12,18 +12,20 @@ import (
 )
 
 type Participant struct {
-	ID          uuid.UUID        `json:"id" db:"id"`
-	CreatedAt   time.Time        `json:"created_at" db:"created_at"`
-	UpdatedAt   time.Time        `json:"updated_at" db:"updated_at"`
-	Name        string           `json:"name" db:"name"`
-	Phone       string           `json:"phone" db:"phone"`
-	DateOfBirth nulls.Time       `json:"date_of_birth" db:"date_of_birth"`
-	Classes     Classes          `many_to_many:"class_memberships" db:"-"`
-	Memberships ClassMemberships `has_many:"class_memberships" db:"-"`
+	ID           uuid.UUID        `json:"id" db:"id"`
+	MemberNumber string           `json:"member_number" db:"member_number"`
+	CreatedAt    time.Time        `json:"created_at" db:"created_at"`
+	UpdatedAt    time.Time        `json:"updated_at" db:"updated_at"`
+	FirstName    string           `json:"first_name" db:"first_name"`
+	LastName     string           `json:"last_name" db:"last_name"`
+	Phone        string           `json:"phone" db:"phone"`
+	DateOfBirth  nulls.Time       `json:"date_of_birth" db:"date_of_birth"`
+	Classes      Classes          `many_to_many:"class_memberships" db:"-"`
+	Memberships  ClassMemberships `has_many:"class_memberships" db:"-"`
 }
 
 func (p Participant) SelectLabel() string {
-	return p.Name
+	return p.FirstName
 }
 
 func (p Participant) SelectValue() interface{} {
@@ -49,7 +51,8 @@ func (p Participants) String() string {
 // This method is not required and may be deleted.
 func (p *Participant) Validate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.Validate(
-		&validators.StringIsPresent{Field: p.Name, Name: "Name"},
+		&validators.StringIsPresent{Field: p.FirstName, Name: "FirstName"},
+		&validators.StringIsPresent{Field: p.LastName, Name: "LastName"},
 		&validators.StringIsPresent{Field: p.Phone, Name: "Phone"},
 	), nil
 }

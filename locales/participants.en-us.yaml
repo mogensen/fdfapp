@@ -19,6 +19,10 @@
   translation: updatedAt
 - id: "participant.name"
   translation: Navn
+- id: "participant.firstname"
+  translation: Fornavn
+- id: "participant.lastname"
+  translation: Efternavn
 - id: "participant.phone"
   translation: Telefon
 - id: "participant.dateOfBirth"

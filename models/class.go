@@ -16,8 +16,8 @@ type Class struct {
 	CreatedAt    time.Time        `json:"created_at" db:"created_at"`
 	UpdatedAt    time.Time        `json:"updated_at" db:"updated_at"`
 	Name         string           `json:"name" db:"name"`
-	Calender     nulls.String     `json:"calender" db:"calender"`
-	Participants Participants     `many_to_many:"class_memberships" db:"-" order_by:"name asc"`
+	Calendar     nulls.String     `json:"calendar" db:"calendar"`
+	Participants Participants     `many_to_many:"class_memberships" db:"-" order_by:"first_name asc"`
 	Memberships  ClassMemberships `has_many:"class_memberships" db:"-"`
 }
 
@@ -47,6 +47,13 @@ func (c Classes) String() string {
 // Validate gets run every time you call a "pop.Validate*" (pop.ValidateAndSave, pop.ValidateAndCreate, pop.ValidateAndUpdate) method.
 // This method is not required and may be deleted.
 func (c *Class) Validate(tx *pop.Connection) (*validate.Errors, error) {
+	// If calendar is set, we validate it.
+	if c.Calendar.Valid && c.Calendar.String != "" {
+		return validate.Validate(
+			&validators.StringIsPresent{Field: c.Name, Name: "Name"},
+			&validators.URLIsPresent{Field: c.Calendar.String, Name: "Calendar"},
+		), nil
+	}
 	return validate.Validate(
 		&validators.StringIsPresent{Field: c.Name, Name: "Name"},
 	), nil

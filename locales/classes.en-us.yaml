@@ -19,7 +19,7 @@
   translation: "Opdateret"
 - id: "class.name"
   translation: "Navn"
-- id: "class.calender"
+- id: "class.calendar"
   translation: "Kalender link"
 - id: "class.participants"
   translation: "Deltagere"

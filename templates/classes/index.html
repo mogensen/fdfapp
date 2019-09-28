@@ -19,8 +19,8 @@
             <%= buttonGroup() { %>
               <%= buttonGroupButton(t("action.edit"), "pen", pathFor(editClassPath({ class_id: class.ID }))) %>
               <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
-              <%= buttonGroupButton(t("action.showActivities"), "exclamation", pathFor(activitiesPath({ class_id: class.ID }))) %>
-              <%= buttonGroupButton(t("action.activityStatus"), "exclamation", pathFor(editClassPath({ class_id: class.ID }))) %>
+              <%= buttonGroupButton(t("action.showActivities"), "calendar-alt", pathFor(activitiesPath({ class_id: class.ID }))) %>
+              <%= buttonGroupButton(t("action.activityStatus"), "exclamation", pathFor(calendarShowPath({ class_id: class.ID }))) %>
             <% } %>
 
         </td>
