@@ -45,7 +45,7 @@ func getCalenerEvents(class *models.Class) []gocal.Event {
 	}
 	defer rc.Close()
 
-	start := time.Now().Add(-time.Duration(365) * 24 * time.Hour)
+	start := time.Now().Add(-time.Duration(180) * 24 * time.Hour)
 	end := time.Now()
 
 	c := gocal.NewParser(rc)

@@ -1,22 +1,25 @@
 <h1><%= class.Name %></h1>
 
-
-<table class="table table-striped">
-    <thead>
-        <th><%= t("calendar.start") %></th>
-        <th><%= t("calendar.name") %></th>
-        <th><%= t("calendar.location") %></th>
-        <th></th>
-    </thead>
+<p><i>Indberetning mangler for følgende.</i></p>
+<table class="table">
     <tbody>
     <%= for (key, event) in events { %>
-        <td><%= event.Start %></td>
-        <td><%= event.Summary %></td>
-        <td><%= event.Location %></td>
-        <td>
-            <%= linkTo(newActivitiesPath({ class_id: class.ID, date: event.Start, title: event.Summary}),
-                {class: "btn btn-primary", body: t("action.createActivity") })  %>
-        </td>
+
+        <tr>
+            <td colspan="2">
+                <hr>
+                <b><%= linkTo(newActivitiesPath({ class_id: class.ID, date: event.Start, title: event.Summary}), { body: event.Summary }) %></b>
+            </td>
+        </tr>
+        <tr>
+            <td class="agenda-date" class="active" rowspan="1">
+                <div class="dayofmonth"><%= event.Start %></div>
+            </td>
+            <td class="agenda-time">
+                <div class="agenda-event">
+                    <i class="text-muted"> <%= event.Location %></i> 
+                </div>
+            </td>
         </tr>
     <% } %>
     </tbody>

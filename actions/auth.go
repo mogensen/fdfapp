@@ -15,6 +15,11 @@ import (
 
 // AuthNew loads the signin page
 func AuthNew(c buffalo.Context) error {
+
+	if currentUser(c) != nil {
+		return c.Redirect(302, "/classes")
+	}
+
 	c.Set("user", models.User{})
 	return c.Render(200, r.HTML("auth/new.html"))
 }

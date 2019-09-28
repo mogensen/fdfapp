@@ -2,10 +2,14 @@
   <h1><%= class.Name %></h1>
 </div>
 
-<p>
-  <strong><%= t("class.calendar") %></strong>: <%= class.Calendar %>
-</p>
-
+<div>
+<%= buttonGroup() { %>
+  <%= buttonGroupButton(t("action.edit"), "pen", pathFor(editClassPath({ class_id: class.ID }))) %>
+  <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
+  <%= buttonGroupButton(t("action.showActivities"), "calendar-alt", pathFor(activitiesPath({ class_id: class.ID }))) %>
+  <%= buttonGroupButton(t("action.activityStatus"), "exclamation", pathFor(calendarShowPath({ class_id: class.ID }))) %>
+<% } %>
+</div>
 
 <table class="table table-striped">
   <thead>
@@ -19,12 +23,17 @@
       <td>
         <%= linkTo(participantPath({ participant_id: participant.ID }), {body: participant.FirstName + " " + participant.LastName}) %>
       </td>
-        <td><%= participant.Phone %></td>
+        <td><a href="tel:<%= participant.Phone %>"><%= participant.Phone %></a></td>
         <td><%= participant.DateOfBirth %></td>
       </tr>
     <% } %>
   </tbody>
 </table>
+
+<div class="clearfix"></div>
+<p>
+  <a href="<%= class.Calendar %>">Kalender</a>
+</p>
 
 <div>
     <h2>Ny deltager</h2>

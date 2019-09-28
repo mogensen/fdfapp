@@ -16,7 +16,7 @@
       <td>
           <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
       </td>
-        <td><%= participant.Phone %></td>
+        <td><a href="tel:<%= participant.Phone %>"><%= participant.Phone %></a></td>
         <td><%= participant.DateOfBirth %></td>
         <td>
           <%= buttonGroup() { %>

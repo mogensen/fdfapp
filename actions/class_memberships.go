@@ -26,6 +26,52 @@ type ClassMembershipsResource struct {
 	buffalo.Resource
 }
 
+// Create adds a ClassMembership to the DB. This function is mapped to the
+// path POST /class_memberships
+func (v ClassMembershipsResource) Create(c buffalo.Context) error {
+	// Allocate an empty ClassMembership
+	classMembership := &models.ClassMembership{}
+
+	// Bind classMembership to the html form elements
+	if err := c.Bind(classMembership); err != nil {
+		return err
+	}
+
+	// Get the DB connection from the context
+	tx, ok := c.Value("tx").(*pop.Connection)
+	if !ok {
+		return errors.New("no transaction found")
+	}
+
+	// Validate the data from the html form
+	verrs, err := tx.ValidateAndCreate(classMembership)
+	if err != nil {
+		return err
+	}
+
+	if verrs.HasAny() {
+		// Make the errors available inside the html template
+		c.Set("errors", verrs)
+
+		// Render again the new.html template that the user can
+		// correct the input.
+		return c.Render(422, r.Auto(c, classMembership))
+	}
+
+	participant := &models.Participant{}
+
+	// To find the Participant the parameter participant_id is used.
+	if err := tx.Eager().Find(participant, classMembership.ParticipantID); err != nil {
+		return c.Error(404, err)
+	}
+
+	// If there are no errors set a success message
+	c.Flash().Add("success", T.Translate(c, "classMembership.created.success"))
+	// and redirect to the class_memberships index page
+	x := fmt.Sprintf("/participants/%s", classMembership.ParticipantID)
+	return c.Redirect(302, x)
+}
+
 // Destroy deletes a ClassMembership from the DB. This function is mapped
 // to the path DELETE /class_memberships/{class_membership_id}
 func (v ClassMembershipsResource) Destroy(c buffalo.Context) error {

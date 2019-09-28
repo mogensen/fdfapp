@@ -77,15 +77,20 @@ func init() {
 			},
 
 			"buttonGroupButton": func(text, icon, link string, help plush.HelperContext) (template.HTML, error) {
-				a := tags.New("a", tags.Options{"class": "btn btn-secondary btn-sm", "href": link})
+				a := tags.New("a", tags.Options{"class": "btn btn-light btn-sm", "href": link})
 				i := tags.New("i", tags.Options{"class": fmt.Sprintf("fas fa-%s", icon)})
 				a.Append(i)
 				a.Append(tags.New("br", tags.Options{}))
 				a.Append(text)
 				return a.HTML(), nil
 			},
-			"buttonGroup": func(help plush.HelperContext) (template.HTML, error) {
-				group := tags.New("div", tags.Options{"class": "btn-group float-right", "role": "group"})
+
+			"buttonGroup": func(floatRight bool, help plush.HelperContext) (template.HTML, error) {
+				float := "float-right"
+				if !floatRight {
+					float = "btn-block"
+				}
+				group := tags.New("div", tags.Options{"class": "btn-group " + float, "role": "group"})
 				if help.HasBlock() {
 					bc, err := help.Block()
 					if err != nil {

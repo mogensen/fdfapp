@@ -13,6 +13,7 @@
 <div class="auth-center">
   <%= if (current_user) { %>
     <h1><%= current_user.Username %></h1>
+    <br />
     <a href="/signout" data-method="DELETE">Sign Out</a>
   <% } else { %>
     <a href="/signin" class="btn btn-primary">Sign In</a>

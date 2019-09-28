@@ -105,8 +105,12 @@ var _ = grift.Namespace("db", func() {
 	grift.Desc("load-participants", "load-participants from Carla csv into the database")
 	grift.Add("load-participants", func(c *grift.Context) error {
 
+		username := read("Username")
+		user := &models.User{}
+		models.DB.Where("username = ?", username).First(user)
+
 		classes := &models.Classes{}
-		models.DB.All(classes)
+		models.DB.Where("user_id = ?", user.ID).All(classes)
 		fmt.Println(classes)
 
 		lines, err := ReadCsv("members.csv")
@@ -129,6 +133,7 @@ var _ = grift.Namespace("db", func() {
 			}
 
 			data := models.Participant{
+				UserID:       user.ID,
 				FirstName:    strings.TrimSpace(p.FirstName + " " + p.MiddelName),
 				LastName:     p.LastName,
 				MemberNumber: p.MemberNumber,
