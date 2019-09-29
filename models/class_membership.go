@@ -9,6 +9,7 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+// ClassMembership details that a participant is member of a given class
 type ClassMembership struct {
 	ID            uuid.UUID   `json:"id" db:"id"`
 	CreatedAt     time.Time   `json:"created_at" db:"created_at"`

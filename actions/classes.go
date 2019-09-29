@@ -142,7 +142,7 @@ func (v ClassesResource) Update(c buffalo.Context) error {
 	if err := c.Bind(class); err != nil {
 		return err
 	}
-	// Make sure that the userid is not overriden by the Bind call
+	// Make sure that the userid is not overridden by the Bind call
 	class.UserID = currentUser(c).ID
 
 	verrs, err := tx.ValidateAndUpdate(class)

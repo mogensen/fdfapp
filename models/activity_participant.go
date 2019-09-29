@@ -9,6 +9,7 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+// ActivityParticipant is the actual record detailing that a participant has been part of an activity
 type ActivityParticipant struct {
 	ID            uuid.UUID `json:"id" db:"id"`
 	CreatedAt     time.Time `json:"created_at" db:"created_at"`

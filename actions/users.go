@@ -7,6 +7,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+// UsersNew renders the form for creating a new User.
+// This function is mapped to the path GET /users/new
 func UsersNew(c buffalo.Context) error {
 	u := models.User{}
 	c.Set("user", u)

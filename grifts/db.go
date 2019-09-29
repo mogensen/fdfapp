@@ -179,30 +179,29 @@ func read(info string) string {
 	return text
 }
 
-type DateTime struct {
+type dateTime struct {
 	time.Time
 }
 
-type CsvParticipant struct {
+type csvParticipant struct {
 	MemberNumber string   `csv:"Medlemsnummer"`
 	FirstName    string   `csv:"Fornavn"`
 	MiddelName   string   `csv:"Mellemnavn"`
 	LastName     string   `csv:"Efternavn"`
 	Phone        string   `csv:"Telefon"`
-	DateOfBirth  DateTime `csv:"Fødselsdag"`
+	DateOfBirth  dateTime `csv:"Fødselsdag"`
 	Class        string   `csv:"Klasse"`
 }
 
 // UnmarshalCSV converts the CSV string as internal date
-func (date *DateTime) UnmarshalCSV(csv string) (err error) {
+func (date *dateTime) UnmarshalCSV(csv string) (err error) {
 	date.Time, err = time.Parse("02-01-2006", csv)
 	return err
 }
 
-// ReadCsv accepts a file and returns its content as a multi-dimentional type
-// with lines and each column. Only parses to string type.
-func ReadCsv(filename string) ([]*CsvParticipant, error) {
-	participants := []*CsvParticipant{}
+// ReadCsv accepts a file and returns its content as csvParticipants
+func ReadCsv(filename string) ([]*csvParticipant, error) {
+	participants := []*csvParticipant{}
 
 	// Open CSV file
 	f, err := os.Open(filename)

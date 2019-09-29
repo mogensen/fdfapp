@@ -22,6 +22,7 @@ type ParticipantsUploadsResource struct {
 	buffalo.Resource
 }
 
+// ParticipantsUploads is used for holding the form data
 type ParticipantsUploads struct {
 	MyFile binding.File `db:"-" form:"carlaCsvAlleMedlemmer"`
 }
@@ -165,8 +166,7 @@ func (date *dateTime) UnmarshalCSV(csv string) (err error) {
 	return err
 }
 
-// ReadCsv accepts a file and returns its content as a multi-dimentional type
-// with lines and each column. Only parses to string type.
+// ReadCsv accepts a file and returns its content as csvParticipants
 func readCsv(reader io.Reader) ([]*csvParticipant, error) {
 	participants := []*csvParticipant{}
 

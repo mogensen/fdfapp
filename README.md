@@ -1,19 +1,14 @@
-# Welcome to Buffalo!
+# FDFapp
 
-Thank you for choosing Buffalo for your web development needs.
+This application is meant to make it easy to report participants for each activity in you local FDF group.
 
 ## Database Setup
-
-It looks like you chose to set up your application using a database! Fantastic!
-
-The first thing you need to do is open up the "database.yml" file and edit it to use the correct usernames, passwords, hosts, etc... that are appropriate for your environment.
 
 You will also need to make sure that **you** start/install the database of your choice. Buffalo **won't** install and start it for you.
 
 For example:
 
-	$ docker run -d -p 5432:5432 --name my-postgres -e POSTGRES_PASSWORD=postgres postgres
-	$ buffalo db migrate
+	$ docker-compose up
 
 ### Create Your Databases
 

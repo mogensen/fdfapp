@@ -11,6 +11,7 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+// Participant are the members in the local FDF group
 type Participant struct {
 	ID           uuid.UUID        `json:"id" db:"id"`
 	UserID       uuid.UUID        `db:"user_id"`
@@ -25,10 +26,12 @@ type Participant struct {
 	Memberships  ClassMemberships `has_many:"class_memberships" db:"-"`
 }
 
+// SelectLabel is used for creating dropdown boxes in plush
 func (p Participant) SelectLabel() string {
 	return p.FirstName
 }
 
+// SelectValue is used for creating dropdown boxes in plush
 func (p Participant) SelectValue() interface{} {
 	return p.ID
 }

@@ -80,16 +80,18 @@ func (v ActivitiesResource) Show(c buffalo.Context) error {
 // This function is mapped to the path GET /activities/new/
 func (v ActivitiesResource) New(c buffalo.Context) error {
 	var err error
-	date := time.Time{}
+
+	// Se if a date has already been supplied by a calender event
+	date := time.Now()
 	if c.Param("date") != "" {
 		date, err = time.Parse("2006-01-02 15:04:05 -0700 MST", c.Param("date"))
 		if err != nil {
 			return err
 		}
-	} else {
-		date = time.Now()
+
 	}
 
+	// Se if a duration has already been supplied by a calender event
 	duration := 0.0
 	if c.Param("duration") != "" {
 		duration, _ = strconv.ParseFloat(c.Param("duration"), 64)

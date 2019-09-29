@@ -10,6 +10,7 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+// Activity is an event, such as an evening meeting or a weekend trip
 type Activity struct {
 	ID           uuid.UUID    `json:"id" db:"id"`
 	UserID       uuid.UUID    `db:"user_id"`

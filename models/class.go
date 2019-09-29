@@ -11,6 +11,7 @@ import (
 	"github.com/gofrs/uuid"
 )
 
+// Class is a logical collection of participants that have activities together
 type Class struct {
 	ID           uuid.UUID        `json:"id" db:"id"`
 	UserID       uuid.UUID        `db:"user_id"`
@@ -22,10 +23,12 @@ type Class struct {
 	Memberships  ClassMemberships `has_many:"class_memberships" db:"-"`
 }
 
+// SelectLabel is used for creating dropdown boxes in plush
 func (c Class) SelectLabel() string {
 	return c.Name
 }
 
+// SelectValue is used for creating dropdown boxes in plush
 func (c Class) SelectValue() interface{} {
 	return c.ID
 }

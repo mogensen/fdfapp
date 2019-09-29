@@ -29,8 +29,8 @@ func CalendarShow(c buffalo.Context) error {
 	return c.Render(200, r.HTML("calendar/show.html"))
 }
 
-func getCalenerEvents(class *models.Class) []CalEvent {
-	events := []CalEvent{}
+func getCalenerEvents(class *models.Class) []calEvent {
+	events := []calEvent{}
 
 	if !class.Calendar.Valid {
 		return events
@@ -59,7 +59,7 @@ func getCalenerEvents(class *models.Class) []CalEvent {
 
 	for _, event := range c.Events {
 
-		events = append(events, CalEvent{
+		events = append(events, calEvent{
 			Summary:     event.Summary,
 			Description: event.Summary,
 			Start:       event.Start,
@@ -83,7 +83,7 @@ func downloadFile(url string) (io.ReadCloser, error) {
 	return resp.Body, nil
 }
 
-type CalEvent struct {
+type calEvent struct {
 	Summary     string
 	Description string
 	Start       *time.Time
