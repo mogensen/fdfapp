@@ -29,14 +29,15 @@ func CalendarShow(c buffalo.Context) error {
 	return c.Render(200, r.HTML("calendar/show.html"))
 }
 
-func getCalenerEvents(class *models.Class) []gocal.Event {
+func getCalenerEvents(class *models.Class) []CalEvent {
+	events := []CalEvent{}
 
 	if !class.Calendar.Valid {
-		return []gocal.Event{}
+		return events
 	}
 
 	if class.Calendar.String == "" {
-		return []gocal.Event{}
+		return events
 	}
 
 	rc, err := downloadFile(class.Calendar.String)
@@ -56,7 +57,18 @@ func getCalenerEvents(class *models.Class) []gocal.Event {
 		return c.Events[i].Start.Before(*(c.Events[j].Start))
 	})
 
-	return c.Events
+	for _, event := range c.Events {
+
+		events = append(events, CalEvent{
+			Summary:     event.Summary,
+			Description: event.Summary,
+			Start:       event.Start,
+			End:         event.End,
+			Location:    event.Location,
+			Duration:    event.End.Sub(*event.Start).Hours(),
+		})
+	}
+	return events
 
 }
 
@@ -69,4 +81,13 @@ func downloadFile(url string) (io.ReadCloser, error) {
 	}
 
 	return resp.Body, nil
+}
+
+type CalEvent struct {
+	Summary     string
+	Description string
+	Start       *time.Time
+	End         *time.Time
+	Location    string
+	Duration    float64
 }

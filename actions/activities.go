@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strconv"
 	"time"
 
 	"github.com/gobuffalo/buffalo"
@@ -89,6 +90,11 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 		date = time.Now()
 	}
 
+	duration := 0.0
+	if c.Param("duration") != "" {
+		duration, _ = strconv.ParseFloat(c.Param("duration"), 64)
+	}
+
 	class := &models.Class{}
 
 	// Retrieve all participants from the DB
@@ -99,9 +105,10 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 	c.Set("participants", class.Participants)
 	c.Set("class", class)
 	return c.Render(200, r.Auto(c, &models.Activity{
-		Date:    date,
-		ClassID: class.ID,
-		Title:   c.Param("title"),
+		Date:     date,
+		ClassID:  class.ID,
+		Title:    c.Param("title"),
+		Duration: duration,
 	}))
 }
 
