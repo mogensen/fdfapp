@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"sort"
@@ -23,10 +24,36 @@ func CalendarShow(c buffalo.Context) error {
 
 	events := getCalenerEvents(class)
 
+	activities := &models.Activities{}
+
+	// Retrieve all Activities from the DB
+	if err := scope(c).Where("class_id = (?)", c.Param("class_id")).All(activities); err != nil {
+		return err
+	}
+	filteredEvents := []calEvent{}
+	for _, event := range events {
+		hasActivity := eventHasActivity(event, activities)
+		if !hasActivity {
+			filteredEvents = append(filteredEvents, event)
+		}
+	}
+
 	c.Set("class", class)
-	c.Set("events", events)
+	c.Set("events", filteredEvents)
 
 	return c.Render(200, r.HTML("calendar/show.html"))
+}
+
+func eventHasActivity(e calEvent, activities *models.Activities) bool {
+	year, month, day := e.Start.Date()
+	for _, act := range *activities {
+		ay, am, ad := act.Date.Date()
+		if ay == year && am == month && ad == day {
+			fmt.Printf("Already created activity for: %s == %s\n ", e.Summary, act.Title)
+			return true
+		}
+	}
+	return false
 }
 
 func getCalenerEvents(class *models.Class) []calEvent {
@@ -54,7 +81,7 @@ func getCalenerEvents(class *models.Class) []calEvent {
 	c.Parse()
 
 	sort.Slice(c.Events, func(i, j int) bool {
-		return c.Events[i].Start.Before(*(c.Events[j].Start))
+		return c.Events[i].Start.After(*(c.Events[j].Start))
 	})
 
 	for _, event := range c.Events {
