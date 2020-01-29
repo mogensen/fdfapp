@@ -12,6 +12,8 @@
 
 - id: "action.createActivity"
   translation: "Indberet"
+- id: "action.createActivity.long"
+  translation: "Indberet uden kalender"
 - id: "action.showActivities"
   translation: "Aktiviteter"
 - id: "action.activityStatus"

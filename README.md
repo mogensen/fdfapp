@@ -15,6 +15,7 @@ For example:
 Ok, so you've edited the "database.yml" file and started your database, now Buffalo can create the databases in that file for you:
 
 	$ buffalo pop create -a
+	$ buffalo db migrate up
 
 ## Starting the Application
 

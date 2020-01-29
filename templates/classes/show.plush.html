@@ -2,7 +2,8 @@
   <h1><%= class.Name %></h1>
 </div>
 
-<div>
+<div class="padding">
+
 <%= buttonGroup() { %>
   <%= buttonGroupButton(t("action.edit"), "pen", pathFor(editClassPath({ class_id: class.ID }))) %>
   <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
@@ -11,24 +12,52 @@
 <% } %>
 </div>
 
-<table class="table table-striped">
-  <thead>
-    <th><%= t("participant.name")} %></th>
-    <th><%= t("participant.phone")} %></th>
-    <th><%= t("participant.dateOfBirth")} %></th>
-    </thead>
-  <tbody>
-    <%= for (participant) in class.Participants { %>
-      <tr>
-      <td>
-        <%= linkTo(participantPath({ participant_id: participant.ID }), {body: participant.FirstName + " " + participant.LastName}) %>
-      </td>
-        <td><a href="tel:<%= participant.Phone %>"><%= participant.Phone %></a></td>
-        <td><%= participant.DateOfBirth %></td>
-      </tr>
-    <% } %>
-  </tbody>
-</table>
+<br />
+<div>
+  <h2>Deltagere</h2>
+</di>
+
+
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+    <div class="row">
+      <div class="col-sm-12">
+        <%= for (participant) in class.Participants { %>
+        <div class="list list-row block">
+          <div class="list-item">
+            <div>
+              <span class="w-48 avatar gd-warning">
+                <img src="https://i.pravatar.cc/300?u=<%= participant.ID %>">
+              </span>
+            </div>
+            <div class="flex">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
+                    <div class="item-except text-muted text-sm h-1x">
+                      <span>Født: <%= participant.DateOfBirth %></span>
+
+                    </div>
+
+                    <div class="item-except text-muted text-sm h-1x">
+                      <%= if (participant.Phone) { %>
+                      Tel: <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a>
+                      <% } %>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="clearfix"></div>
 <p>

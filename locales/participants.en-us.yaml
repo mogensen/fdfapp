@@ -27,6 +27,8 @@
   translation: Telefon
 - id: "participant.dateOfBirth"
   translation: Fødselsdag
+- id: "participant.memberNumber"
+  translation: Medlems nummer
 - id: "participant.classes"
   translation: classes
 - id: "participant.memberships"

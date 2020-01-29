@@ -1,6 +1,10 @@
 <h1><%= class.Name %></h1>
 
 <p><i>Indberetning mangler for følgende. Nyeste event øverst.</i></p>
+<%= buttonGroup(true) { %>
+    <%= buttonGroupButton(t("action.createActivity.long"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
+  <% } %>
+
 <table class="table">
     <tbody>
     <%= for (key, event) in events { %>
