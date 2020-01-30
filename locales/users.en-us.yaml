@@ -4,3 +4,8 @@
   translation: "User was successfully updated."
 - id: "user.destroyed.success"
   translation: "User was successfully destroyed."
+
+- id: "user.username"
+  translation: "Brugernavn"
+- id: "user.password"
+  translation: "Kodeord"

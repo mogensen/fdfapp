@@ -1,8 +1,30 @@
-<div class="page-header">
-  <h1>New User</h1>
-</div>
+<style>
+  .auth-wrapper{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-<%= formFor(user, {action: usersPath(), method: "POST"}) { %>
-  <%= partial("users/form.html") %>
-  <%= linkTo(usersPath(), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
-<% } %>
+  .auth-wrapper .sign-form{
+    max-width: 350px;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .auth-wrapper h1{margin-bottom: 20px;}
+</style>
+  
+<div class="auth-wrapper">
+  <div class="sign-form">
+    <h1>Register</h1>
+
+    <%= form_for(user, {action: usersPath()}) { %>
+      <%= f.InputTag("Username", {label: t("user.username")}) %>
+      <%= f.InputTag("Password", {type: "password", label: t("user.password")}) %>
+      <%= f.InputTag("PasswordConfirmation", {type: "password", label: t("user.password")}) %>
+      
+      <button class="btn btn-success">Register!</button>
+    <% } %>
+  </div>
+</div>

@@ -36,7 +36,7 @@
                   <div class="col-sm">
                     <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
                     <div class="item-except text-muted text-sm h-1x">
-                      <span>Født: <%= participant.DateOfBirth %></span>
+                      <span>Født: <%= participant.DateOfBirth %></span> (<%= age(participant.DateOfBirth)%>)
 
                     </div>
 

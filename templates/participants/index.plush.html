@@ -19,19 +19,28 @@
                 <div class="row">
                   <div class="col-sm">
                     <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
-                    <div class="item-except text-muted text-sm h-1x">
-                      <span>Født: <%= participant.DateOfBirth %></span>
+                    <div class="item-except text-muted text-sm">
+                      <span>Født: <%= participant.DateOfBirth %></span> (<%= age(participant.DateOfBirth)%>)
 
-                    </div>
-
-                    <div class="item-except text-muted text-sm h-1x">
-                      <%= if (participant.Phone) { %>
-                      Tel: <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a>
-                      <% } %>
-                    </div>
                   </div>
+                </div>
+
+                <div class="col-sm">
+                  <%= if (participant.MemberNumber) { %>
+                    <div class="item-except text-muted text-sm">
+                      <%= t("participant.memberNumber") %> : <%= participant.MemberNumber %>
+                  </div>
+                  <% } %>
+                
+                    <%= if (participant.Phone) { %>
+                    <div class="item-except text-muted text-sm">
+                      Tel: <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a>
+                    </div>
+                    <% } %>
+                  </div>
+                
                   <div class="col-sm d-none d-sm-block">
-                    <div class="text-right mb-3">
+                    <div class="text-right mb-2">
                       <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
                         class="btn btn-primary">
                         <i class="fas fa-pen-alt"></i>

@@ -2,22 +2,83 @@
   <h1><%= participant.FirstName %> <%= participant.LastName %></h1>
 </div>
 
-<ul class="list-unstyled list-inline">
-  <li class="list-inline-item">
-    <%= linkTo(editParticipantPath({ participant_id: participant.ID }), {class: "btn btn-warning", body: t("action.edit")}) %>
-  </li>
-  <li class="list-inline-item">
-    <%= linkTo(participantPath({ participant_id: participant.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: t("action.destroy")}) %>
-  </li>
-</ul>
+<div class="flex">
 
-<p>
-  <strong><%= t("participant.phone") %></strong>: <%= participant.Phone %>
-</p>
-<p>
-  <strong><%= t("participant.dateOfBirth") %></strong>: <%= participant.DateOfBirth %>
-</p>
+<div class="d-block d-sm-none">
+  <div class="text-right mb-2">
+    <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
+      class="btn btn-primary">
+      <i class="fas fa-pen-alt"></i>
+    </a>
+    <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
+      class="btn btn-danger">
+      <i class="fas fa-trash-alt"></i>
+    </a>
+  </div>
+</div>
+</div>
 
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="list list-row block">
+          <div class="list-item">
+            <div>
+              <span class="w-48 avatar gd-warning">
+                <img src="https://i.pravatar.cc/300?u=<%= participant.ID %>">
+              </span>
+            </div>
+            <div class="flex">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
+                    <div class="item-except text-muted text-sm">
+                      <span>Født: <%= participant.DateOfBirth %></span> (<%= age(participant.DateOfBirth)%>)
+                  </div>
+                </div>
+
+                <div class="col-sm">
+                  <%= if (participant.MemberNumber) { %>
+                    <div class="item-except text-muted text-sm">
+                      <%= t("participant.memberNumber") %> : <%= participant.MemberNumber %>
+                  </div>
+                  <% } %>
+                
+                    <%= if (participant.Phone) { %>
+                    <div class="item-except text-muted text-sm">
+                      Tel: <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a>
+                    </div>
+                    <% } %>
+                  </div>
+                
+                  <div class="col-sm d-none d-sm-block">
+                    <div class="text-right mb-2">
+                      <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
+                        class="btn btn-primary">
+                        <i class="fas fa-pen-alt"></i>
+                      </a>
+                      <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
+                        class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-header">
+  <h2>Klasser</h2>
+</div>
 
 <table class="table table-striped">
   <thead>
@@ -42,7 +103,7 @@
 
 
 <div class="page-header">
-  <h1>Tilføj til klasse</h1>
+  <h2>Tilføj til klasse</h2>
 </div>
 
 

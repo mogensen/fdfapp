@@ -20,8 +20,8 @@
     <h1>Sign In</h1>
 
     <%= form_for(user, {action: signinPath()}) { %>
-      <%= f.InputTag("Username") %>
-      <%= f.InputTag("Password", {type: "password"}) %>
+      <%= f.InputTag("Username", {label: t("user.username")}) %>
+      <%= f.InputTag("Password", {type: "password", label: t("user.password")}) %>
       <button class="btn btn-success">Sign In!</button>
     <% } %>
   </div>
