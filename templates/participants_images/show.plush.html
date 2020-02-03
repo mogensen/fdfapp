@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h1>ParticipantsImage#Show</h1>
+</div>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">
+    <%= linkTo(participantsImagesPath(), {class: "btn btn-info"}) { %>
+      Back to all ParticipantsImages
+    <% } %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(editParticipantsImagePath({ participants_image_id: participantsImage.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+  </li>
+  <li class="list-inline-item">
+    <%= linkTo(participantsImagePath({ participants_image_id: participantsImage.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+  </li>
+</ul>
+

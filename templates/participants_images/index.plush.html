@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1>ParticipantsImages</h1>
+</div>
+<ul class="list-unstyled list-inline">
+  <li>
+    <%= linkTo(newParticipantsImagesPath(), {class: "btn btn-primary"}) { %>
+      Create New ParticipantsImage
+    <% } %>
+  </li>
+</ul>
+
+<table class="table table-striped">
+  <thead>
+  <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (participantsImage) in participantsImages { %>
+      <tr>
+      <td>
+          <div class="pull-right">
+            <%= linkTo(participantsImagePath({ participants_image_id: participantsImage.ID }), {class: "btn btn-info", body: "View"}) %>
+            <%= linkTo(editParticipantsImagePath({ participants_image_id: participantsImage.ID }), {class: "btn btn-warning", body: "Edit"}) %>
+            <%= linkTo(participantsImagePath({ participants_image_id: participantsImage.ID }), {class: "btn btn-danger", "data-method": "DELETE", "data-confirm": "Are you sure?", body: "Destroy"}) %>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginator(pagination) %>
+</div>

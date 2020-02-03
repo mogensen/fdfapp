@@ -13,17 +13,18 @@ import (
 
 // Participant are the members in the local FDF group
 type Participant struct {
-	ID           uuid.UUID        `json:"id" db:"id"`
-	UserID       uuid.UUID        `db:"user_id"`
-	MemberNumber string           `json:"member_number" db:"member_number"`
-	CreatedAt    time.Time        `json:"created_at" db:"created_at"`
-	UpdatedAt    time.Time        `json:"updated_at" db:"updated_at"`
-	FirstName    string           `json:"first_name" db:"first_name"`
-	LastName     string           `json:"last_name" db:"last_name"`
-	Phone        string           `json:"phone" db:"phone"`
-	DateOfBirth  nulls.Time       `json:"date_of_birth" db:"date_of_birth"`
-	Classes      Classes          `many_to_many:"class_memberships" db:"-"`
-	Memberships  ClassMemberships `has_many:"class_memberships" db:"-"`
+	ID           uuid.UUID          `json:"id" db:"id"`
+	UserID       uuid.UUID          `db:"user_id"`
+	MemberNumber string             `json:"member_number" db:"member_number"`
+	CreatedAt    time.Time          `json:"created_at" db:"created_at"`
+	UpdatedAt    time.Time          `json:"updated_at" db:"updated_at"`
+	FirstName    string             `json:"first_name" db:"first_name"`
+	LastName     string             `json:"last_name" db:"last_name"`
+	Phone        string             `json:"phone" db:"phone"`
+	DateOfBirth  nulls.Time         `json:"date_of_birth" db:"date_of_birth"`
+	Classes      Classes            `many_to_many:"class_memberships" db:"-"`
+	Memberships  ClassMemberships   `has_many:"class_memberships" db:"-"`
+	Image        *ParticipantsImage `has_one:"participants_images" fk_id:"participant_id"`
 }
 
 // SelectLabel is used for creating dropdown boxes in plush

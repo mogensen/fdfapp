@@ -5,6 +5,7 @@ go 1.12
 require (
 	github.com/apognu/gocal v0.4.1
 	github.com/dimchansky/utfbom v1.1.0
+	github.com/disintegration/imaging v1.6.2
 	github.com/gobuffalo/buffalo v0.14.11
 	github.com/gobuffalo/buffalo-pop v1.23.1
 	github.com/gobuffalo/envy v1.8.1
@@ -27,7 +28,9 @@ require (
 	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/markbates/grift v1.1.0
 	github.com/pkg/errors v0.9.1
+	github.com/stretchr/testify v1.4.0
 	github.com/unrolled/secure v1.0.0
 	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c
+	golang.org/x/image v0.0.0-20200119044424-58c23975cae1 // indirect
 	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
 )

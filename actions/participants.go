@@ -32,7 +32,7 @@ func (v ParticipantsResource) List(c buffalo.Context) error {
 
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
-	q := scope(c).PaginateFromParams(c.Params())
+	q := scope(c).Eager().PaginateFromParams(c.Params())
 
 	// Retrieve all Participants from the DB
 	if err := q.All(participants); err != nil {
@@ -120,7 +120,7 @@ func (v ParticipantsResource) Edit(c buffalo.Context) error {
 	// Allocate an empty Participant
 	participant := &models.Participant{}
 
-	if err := scope(c).Find(participant, c.Param("participant_id")); err != nil {
+	if err := scope(c).Eager().Find(participant, c.Param("participant_id")); err != nil {
 		return c.Error(404, err)
 	}
 

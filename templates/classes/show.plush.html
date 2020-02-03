@@ -15,7 +15,7 @@
 <br />
 <div>
   <h2>Deltagere</h2>
-</di>
+</div>
 
 
 <div class="page-content page-container" id="page-content">
@@ -27,8 +27,13 @@
           <div class="list-item">
             <div>
               <span class="w-48 avatar gd-warning">
-                <img src="https://i.pravatar.cc/300?u=<%= participant.ID %>">
+                <%= if (uuid(participant.Image.ID)){ %>
+                <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
+                <% } else { %>
+                <img src="/assets/images/empty-avatar.png"> </span>
+              <% } %>
               </span>
+
             </div>
             <div class="flex">
               <div class="container">
@@ -46,7 +51,6 @@
                       <% } %>
                     </div>
                   </div>
-                  
                 </div>
               </div>
 
@@ -65,7 +69,7 @@
 </p>
 
 <div>
-    <h2>Ny deltager</h2>
+  <h2>Ny deltager</h2>
 </div>
 
 <%= formFor(participant, {action: participantsPath(), method: "POST"}) { %>

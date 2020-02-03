@@ -1,0 +1,6 @@
+create_table("participants_images") {
+	t.Column("id", "uuid", {primary: true})
+	t.Timestamps()
+	t.Column("participant_id", "uuid", {})
+	t.Column("image_data", "bytea", {})
+}

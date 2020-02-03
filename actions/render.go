@@ -101,6 +101,12 @@ func init() {
 				}
 				return group.HTML(), nil
 			},
+			"uuid": func(id uuid.UUID) bool {
+				if id == uuid.Nil {
+					return false
+				}
+				return true
+			},
 
 			"age": func(t nulls.Time, classes *models.Classes) string {
 				year, month, _, _, _, _ := diff(t.Time, time.Now())

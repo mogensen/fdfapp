@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1>Edit ParticipantsImage</h1>
+</div>
+
+<%= formFor(participantsImage, {action: participantsImagePath({ participants_image_id: participantsImage.ID }), method: "PUT"}) { %>
+  <%= partial("participants_images/form.html") %>
+  <%= linkTo(participantsImagePath({ participants_image_id: participantsImage.ID }), {class: "btn btn-warning", "data-confirm": "Are you sure?", body: "Cancel"}) %>
+<% } %>

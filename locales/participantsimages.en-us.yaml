@@ -1,0 +1,6 @@
+- id: "participants_image.created.success"
+  translation: "ParticipantsImage was successfully created."
+- id: "participants_image.updated.success"
+  translation: "ParticipantsImage was successfully updated."
+- id: "participants_image.destroyed.success"
+  translation: "ParticipantsImage was successfully destroyed."
