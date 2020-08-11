@@ -8,9 +8,10 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
+	"github.com/gobuffalo/helpers/hctx"
 	"github.com/gobuffalo/nulls"
 	"github.com/gobuffalo/packr/v2"
-	"github.com/gobuffalo/plush"
+	"github.com/gobuffalo/plush/v4"
 	"github.com/gobuffalo/tags"
 	"github.com/gofrs/uuid"
 	"github.com/mogensen/fdfapp/models"
@@ -20,7 +21,7 @@ var r *render.Engine
 var assetsBox = packr.New("app:assets", "../public")
 
 func init() {
-	plush.DefaultTimeFormat = "02 Jan 2006"
+	plush.DefaultTimeFormat = "02 January 2006"
 
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
@@ -52,7 +53,7 @@ func init() {
 				return ""
 			},
 
-			"isActive": func(name string, help plush.HelperContext) string {
+			"isActive": func(name string, help hctx.HelperContext) string {
 				if cp, ok := help.Value("current_route").(buffalo.RouteInfo); ok {
 					if strings.HasPrefix(cp.PathName, name) {
 						return "active"
@@ -77,7 +78,7 @@ func init() {
 				return models.Class{}
 			},
 
-			"buttonGroupButton": func(text, icon, link string, help plush.HelperContext) (template.HTML, error) {
+			"buttonGroupButton": func(text, icon, link string, help hctx.HelperContext) (template.HTML, error) {
 				a := tags.New("a", tags.Options{"class": "btn btn-light btn-sm", "href": link})
 				i := tags.New("i", tags.Options{"class": fmt.Sprintf("fas fa-%s", icon)})
 				a.Append(i)
@@ -86,7 +87,7 @@ func init() {
 				return a.HTML(), nil
 			},
 
-			"buttonGroup": func(floatRight bool, help plush.HelperContext) (template.HTML, error) {
+			"buttonGroup": func(floatRight bool, help hctx.HelperContext) (template.HTML, error) {
 				float := "float-right"
 				if !floatRight {
 					float = "btn-block"

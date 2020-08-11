@@ -14,6 +14,7 @@ import (
 
 // CalendarShow default implementation.
 func CalendarShow(c buffalo.Context) error {
+	c.Set("TIME_FORMAT", "02 Jan 2006")
 	// Allocate an empty Class
 	class := &models.Class{}
 

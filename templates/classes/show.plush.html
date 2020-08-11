@@ -6,9 +6,8 @@
 
 <%= buttonGroup() { %>
   <%= buttonGroupButton(t("action.edit"), "pen", pathFor(editClassPath({ class_id: class.ID }))) %>
-  <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
+  <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(calendarShowPath({ class_id: class.ID }))) %>
   <%= buttonGroupButton(t("action.showActivities"), "calendar-alt", pathFor(activitiesPath({ class_id: class.ID }))) %>
-  <%= buttonGroupButton(t("action.activityStatus"), "exclamation", pathFor(calendarShowPath({ class_id: class.ID }))) %>
 <% } %>
 </div>
 
@@ -41,7 +40,7 @@
                   <div class="col-sm">
                     <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
                     <div class="item-except text-muted text-sm h-1x">
-                      <span>Født: <%= participant.DateOfBirth %></span> (<%= age(participant.DateOfBirth)%>)
+                      <span>Født: <%= format(participant.DateOfBirth, "02 Jan 2006") %></span> (<%= age(participant.DateOfBirth)%>)
 
                     </div>
 

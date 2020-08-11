@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/v5"
 	"github.com/gofrs/uuid"
 	"github.com/mogensen/fdfapp/models"
 )
@@ -33,6 +33,7 @@ type ActivitiesResource struct {
 // List gets all Activities. This function is mapped to the path
 // GET /activities
 func (v ActivitiesResource) List(c buffalo.Context) error {
+	c.Set("TIME_FORMAT", "02 Jan 2006")
 	activities := &models.Activities{}
 
 	// Paginate results. Params "page" and "per_page" control pagination.
@@ -65,6 +66,7 @@ func (v ActivitiesResource) List(c buffalo.Context) error {
 // Show gets the data for one Activity. This function is mapped to
 // the path GET /activities/{activity_id}
 func (v ActivitiesResource) Show(c buffalo.Context) error {
+	c.Set("TIME_FORMAT", "02 Jan 2006")
 	// Allocate an empty Activity
 	activity := &models.Activity{}
 

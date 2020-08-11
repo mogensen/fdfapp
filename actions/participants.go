@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/v5"
 	"github.com/mogensen/fdfapp/models"
 )
 
@@ -48,6 +48,7 @@ func (v ParticipantsResource) List(c buffalo.Context) error {
 // Show gets the data for one Participant. This function is mapped to
 // the path GET /participants/{participant_id}
 func (v ParticipantsResource) Show(c buffalo.Context) error {
+	c.Set("TIME_FORMAT", "02 Jan 2006")
 	// Allocate an empty Participant
 	participant := &models.Participant{}
 

@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/pop"
-	"github.com/gobuffalo/validate"
+	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/validate/v3"
 	"github.com/mogensen/fdfapp/models"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
