@@ -7,7 +7,8 @@
 <table class="table table-striped">
     <thead>
         <th>&nbsp;</th>
-        <th><%= t("participant.name") %></th>
+        <th>&nbsp;</th>
+        <th width="85%"><%= t("participant.name") %></th>
     </thead>
     <tbody>
         <%= for (participant) in participants { %>
@@ -19,7 +20,15 @@
                 name="participants"
                 value="<%= participant.ID %>">
             </td>
-
+            <td>
+                <span class="w-48 avatar gd-warning">
+                <%= if (image(participant.Image)) { %>
+                    <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
+                <% } else { %>
+                    <img src="/assets/images/empty-avatar.png"> </span>
+                <% } %>
+                </span>
+            </td>
             <td><%= participant.FirstName %> <%= participant.LastName %></td>
         </tr>
         <% } %>

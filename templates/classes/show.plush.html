@@ -27,7 +27,7 @@
           <div class="list-item">
             <div>
               <span class="w-48 avatar gd-warning">
-                <%= if (uuid(participant.Image.ID)){ %>
+                <%= if (image(participant.Image)){ %>
                 <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
                 <% } else { %>
                 <img src="/assets/images/empty-avatar.png"> </span>
@@ -67,11 +67,3 @@
 <p>
   <a href="<%= class.Calendar %>">Kalender</a>
 </p>
-
-<div>
-  <h2>Ny deltager</h2>
-</div>
-
-<%= formFor(participant, {action: participantsPath(), method: "POST"}) { %>
-  <%= partial("participants/form.html") %>
-<% } %>

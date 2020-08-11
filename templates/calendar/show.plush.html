@@ -1,29 +1,43 @@
 <h1><%= class.Name %></h1>
 
-<p><i>Indberetning mangler for følgende. Nyeste event øverst.</i></p>
-<%= buttonGroup(true) { %>
-    <%= buttonGroupButton(t("action.createActivity.long"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
-  <% } %>
-
-<table class="table">
-    <tbody>
-    <%= for (key, event) in events { %>
-        <tr>
-            <td colspan="2">
-                <hr>
-                <b><%= linkTo(newActivitiesPath({ class_id: class.ID, date: event.Start, title: event.Summary, duration: event.Duration}), { body: event.Summary }) %></b>
-            </td>
-        </tr>
-        <tr>
-            <td class="agenda-date" class="active" rowspan="1">
-                <div class="dayofmonth"><%= event.Start %></div>
-            </td>
-            <td class="agenda-time">
-                <div class="agenda-event">
-                    <i class="text-muted"> <%= event.Location %></i> 
+<div class="page-content page-container" >
+      <div class="row">
+        <div class="col-sm-12">
+            <p><i>Indberetning mangler for følgende. Nyeste event øverst.</i></p>
+            <%= buttonGroup(true) { %>
+                <%= buttonGroupButton(t("action.createActivity.long"), "plus", pathFor(newActivitiesPath({ class_id: class.ID }))) %>
+            <% } %>
+        </div>
+    </div>
+</div>
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+      <div class="row">
+        <div class="col-sm-12">
+        <%= for (key, event) in events { %>
+          <div class="list list-row block">
+            <div class="list-item">
+              <div class="flex">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <b><%= linkTo(newActivitiesPath({ class_id: class.ID, date: event.Start, title: event.Summary, duration: event.Duration}), { body: event.Summary }) %></b>
+                      <div class="item-except text-muted text-sm">
+                        <i class="text-muted"> <%= event.Location %></i> 
+                      </div>
+                    </div>
+                  <div class="col-sm-2">    
+                    <div class="item-except text-muted text-sm">
+                      <span class="dayofmonth"><%= event.Start %></span>
+                    </div>
+                  </div>
+                  </div>
                 </div>
-            </td>
-        </tr>
-    <% } %>
-    </tbody>
-</table>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

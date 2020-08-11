@@ -101,6 +101,12 @@ func init() {
 				}
 				return group.HTML(), nil
 			},
+			"image": func(img *models.ParticipantsImage) bool {
+				if img != nil && img.ID != uuid.Nil {
+					return true
+				}
+				return false
+			},
 			"uuid": func(id uuid.UUID) bool {
 				if id == uuid.Nil {
 					return false

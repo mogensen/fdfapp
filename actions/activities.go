@@ -100,7 +100,7 @@ func (v ActivitiesResource) New(c buffalo.Context) error {
 	class := &models.Class{}
 
 	// Retrieve all participants from the DB
-	if err := scope(c).Eager().Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Eager("Participants.Image").Find(class, c.Param("class_id")); err != nil {
 		return err
 	}
 
@@ -174,7 +174,7 @@ func (v ActivitiesResource) Edit(c buffalo.Context) error {
 	// Allocate an empty Activity
 	activity := &models.Activity{}
 
-	if err := scope(c).Eager().Find(activity, c.Param("activity_id")); err != nil {
+	if err := scope(c).Eager("Participants.Image").Find(activity, c.Param("activity_id")); err != nil {
 		return c.Error(404, err)
 	}
 
@@ -183,6 +183,14 @@ func (v ActivitiesResource) Edit(c buffalo.Context) error {
 	// Retrieve all participants from the DB
 	if err := scope(c).Eager().Find(class, activity.ClassID); err != nil {
 		return err
+	}
+
+	for i, v := range class.Participants {
+		part := &models.Participant{}
+		if err := scope(c).Eager().Find(part, v.ID); err != nil {
+			return err
+		}
+		class.Participants[i] = *part
 	}
 
 	c.Set("participants", class.Participants)
