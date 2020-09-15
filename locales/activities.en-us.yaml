@@ -1,9 +1,9 @@
 - id: "activity.created.success"
-  translation: "Activity was successfully created."
+  translation: "Aktiviteten er nu oprettet."
 - id: "activity.updated.success"
-  translation: "Activity was successfully updated."
+  translation: "Aktiviteten er opdateret."
 - id: "activity.destroyed.success"
-  translation: "Activity was successfully destroyed."
+  translation: "Aktiviteten er slettet."
 
 - id: "activity.iD"
   translation: "ID"
