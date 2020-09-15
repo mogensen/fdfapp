@@ -170,30 +170,3 @@ func (v ParticipantsResource) Update(c buffalo.Context) error {
 	// and redirect to the participants index page
 	return c.Render(200, r.Auto(c, participant))
 }
-
-// Destroy deletes a Participant from the DB. This function is mapped
-// to the path DELETE /participants/{participant_id}
-func (v ParticipantsResource) Destroy(c buffalo.Context) error {
-	// Get the DB connection from the context
-	tx, ok := c.Value("tx").(*pop.Connection)
-	if !ok {
-		return errors.New("no transaction found")
-	}
-
-	// Allocate an empty Participant
-	participant := &models.Participant{}
-
-	// To find the Participant the parameter participant_id is used.
-	if err := scope(c).Find(participant, c.Param("participant_id")); err != nil {
-		return c.Error(404, err)
-	}
-
-	if err := tx.Destroy(participant); err != nil {
-		return err
-	}
-
-	// If there are no errors set a flash message
-	c.Flash().Add("success", T.Translate(c, "participant.destroyed.success"))
-	// Redirect to the participants index page
-	return c.Render(200, r.Auto(c, participant))
-}
