@@ -64,7 +64,7 @@ func (v ParticipantsUploadsResource) Create(c buffalo.Context) error {
 	user := currentUser(c)
 
 	created := 0
-	ignored := 0
+	updatedClass := 0
 	missingClass := 0
 
 	// Loop through lines & turn into object
@@ -72,13 +72,58 @@ func (v ParticipantsUploadsResource) Create(c buffalo.Context) error {
 
 		fmt.Printf("------------------\n")
 		existingParticipant := &models.Participant{}
-		q := scope(c).Where("member_number = ?", p.MemberNumber)
+		q := scope(c).Where("member_number = ?", p.MemberNumber).Eager()
 		err = q.First(existingParticipant)
 
 		fmt.Printf("Participant: %s, %s\n", p.FirstName, p.MemberNumber)
 		if err == nil {
 			fmt.Printf("Participant exists: %s, %s\n", existingParticipant.FirstName, existingParticipant.MemberNumber)
-			ignored++
+			updatedClass++
+
+			for _, v := range existingParticipant.Memberships {
+
+				classMembership := &models.ClassMembership{}
+
+				// To find the ClassMembership the parameter class_membership_id is used.
+				if err := tx.Find(classMembership, v.ID); err != nil {
+					return c.Error(404, err)
+				}
+
+				if err := tx.Destroy(classMembership); err != nil {
+					return err
+				}
+			}
+			existingParticipant.Memberships = models.ClassMemberships{}
+
+			err := tx.Update(existingParticipant)
+			if err != nil {
+				return err
+			}
+
+			for _, class := range *classes {
+				// Create participant only if his class exist
+				if class.Name == p.Class {
+					// Add Participant to class
+					classsMemberShip := models.ClassMembership{
+						Class:       class,
+						Participant: *existingParticipant,
+					}
+					verrs, err := tx.ValidateAndCreate(&classsMemberShip)
+					if err != nil {
+						return err
+					}
+					if verrs.HasAny() {
+						// Make the errors available inside the html template
+						c.Set("errors", verrs)
+						c.Logger().Warn(verrs)
+
+						// Render again the new.html template that the user can
+						// correct the input.
+						return c.Render(422, r.Auto(c, participantsUpload))
+					}
+				}
+			}
+
 			continue
 		}
 
@@ -141,7 +186,7 @@ func (v ParticipantsUploadsResource) Create(c buffalo.Context) error {
 	}
 
 	// If there are no errors set a success message
-	c.Flash().Add("success", fmt.Sprintf("Success. %d medlemmer oprettet, %d medlemmer ignoret, %d medlemmer hvor klassen ikke findes.", created, ignored, missingClass))
+	c.Flash().Add("success", fmt.Sprintf("Success. %d medlemmer oprettet, %d medlemmer opdateret klasse, %d medlemmer hvor klassen ikke findes.", created, updatedClass, missingClass))
 	// and redirect to the participants_uploads index page
 	return c.Redirect(302, "/participants")
 }
