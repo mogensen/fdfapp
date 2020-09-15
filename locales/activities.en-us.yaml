@@ -1,5 +1,5 @@
 - id: "activity.created.success"
-  translation: "Aktiviten er nu oprettet."
+  translation: "Aktiviteten er nu oprettet."
 - id: "activity.updated.success"
   translation: "Aktiviteten er opdateret."
 - id: "activity.destroyed.success"
