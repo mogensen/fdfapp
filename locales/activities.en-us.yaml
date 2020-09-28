@@ -15,6 +15,8 @@
   translation: "Titel"
 - id: "activity.duration"
   translation: "Længde (timer)"
+- id: "activity.duration.warning"
+  translation: "Det er ikke tilladt at have mere end 9 aktivitetstimer pr døgn."
 - id: "activity.date"
   translation: "Dato"
 - id: "activity.classID"
@@ -23,6 +25,8 @@
   translation: "Klasse"
 - id: "activity.participants"
   translation: "Deltagere"
+- id: "activity.participants.warning"
+  translation: "Der er ikke tilskud til aktiviteter med under 3 deltagere."
 - id: "activity.participantHours"
   translation: "Deltager timer"
 

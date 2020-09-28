@@ -30,4 +30,6 @@ require (
 	github.com/unrolled/secure v1.0.0
 	golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59
 	golang.org/x/image v0.0.0-20200119044424-58c23975cae1 // indirect
+	golang.org/x/text v0.3.3 // indirect
+	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
