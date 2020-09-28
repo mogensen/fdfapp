@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 10.10 (Debian 10.10-1.pgdg90+1)
--- Dumped by pg_dump version 11.7 (Ubuntu 11.7-0ubuntu0.19.10.1)
+-- Dumped by pg_dump version 12.3 (Ubuntu 12.3-1.pgdg19.10+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,8 +17,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: activities; Type: TABLE; Schema: public; Owner: postgres
