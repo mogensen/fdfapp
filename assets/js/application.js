@@ -13,7 +13,7 @@ $(() => {
 
     $('input[name="participants"]').on( "change", function() { 
       checked = $('input[name="participants"]:checked').length
-      if (checked < 3) {
+      if (checked < 4) {
         $("#activity-participants-warning").show()
       } else {
         $("#activity-participants-warning").hide()
