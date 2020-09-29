@@ -85,7 +85,6 @@ var _ = grift.Namespace("db", func() {
 		}
 
 		classes := models.Classes{
-			{UserID: user.ID, Name: "Puslinge", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_l5f2o8l8cbitivjsdclle5bm3k%40group.calendar.google.com/public/basic.ics")},
 			{UserID: user.ID, Name: "Tumling", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_l5f2o8l8cbitivjsdclle5bm3k%40group.calendar.google.com/public/basic.ics")},
 			{UserID: user.ID, Name: "Pilt", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_omj54ddubl3k4olhvq0395a99g%40group.calendar.google.com/public/basic.ics")},
 			{UserID: user.ID, Name: "Væbner", Calendar: nulls.NewString("https://calendar.google.com/calendar/ical/fdf.dk_4qqn55n1v17thq0r08lb4g3i3o%40group.calendar.google.com/public/basic.ics")},
