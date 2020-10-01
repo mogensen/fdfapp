@@ -81,6 +81,9 @@ func App() *buffalo.App {
 		app.Middleware.Skip(Authorize, HomeHandler, UsersNew, UsersCreate, AuthNew, AuthCreate)
 		app.Resource("/participants_uploads", ParticipantsUploadsResource{})
 		app.Resource("/participants_images", ParticipantsImagesResource{})
+
+		app.GET("/admin", AdminShow)
+
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 	plush.DefaultTimeFormat = "02 Jan 2006"
