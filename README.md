@@ -25,6 +25,23 @@ Buffalo ships with a command that will watch your application and automatically 
 
 If you point your browser to [http://127.0.0.1:3000](http://127.0.0.1:3000) you should see a "Welcome to Buffalo!" page.
 
-**Congratulations!** You now have your Buffalo application up and running.
 
-[Powered by Buffalo](http://gobuffalo.io)
+## Running on Heroku
+
+Create app on Heroku.
+
+Set to run as `container` stack.
+
+    $ heroku stack:set -a <appname> container
+
+Add `Config Vars`:
+
+    DATABASE_URL=postgres://user:pass@host:5432/databasename
+	GO_ENV=production
+	SESSION_SECRET=${uuidgen}
+
+Seed database to create user ect...
+
+    $ heroku run -a <appname> task db:seed
+	# OR
+    $ heroku run -a <appname> task db:fdfaa4

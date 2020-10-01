@@ -2,66 +2,10 @@
   <h1>Medlemmer</h1>
 </div>
 
-<div class="page-content page-container" id="page-content">
-  <div class="padding">
-    <div class="row">
-      <div class="col-sm-12">
-        <%= for (participant) in participants { %>
-        <div class="list list-row block">
-          <div class="list-item">
-            <div>
-              <span class="w-72 avatar gd-warning">
-                <%= if (image(participant.Image)){ %>
-                <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
-                <% } else { %>
-                <img src="/assets/images/empty-avatar.png"> </span>
-              <% } %>
-              </span>
-            </div>
-            <div class="flex">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm">
-                    <b><%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %></b>
-                    <div class="item-except text-muted text-sm">
-                      <span>Født: <%= format(participant.DateOfBirth, "02 Jan 2006") %></span> (<%= age(participant.DateOfBirth)%>)
-
-                  </div>
-                </div>
-
-                <div class="col-sm">
-                  <%= if (participant.MemberNumber) { %>
-                    <div class="item-except text-muted text-sm">
-                      <%= t("participant.memberNumber") %> : <%= participant.MemberNumber %>
-                  </div>
-                  <% } %>
-                
-                    <%= if (participant.Phone) { %>
-                    <div class="item-except text-muted text-sm">
-                      Tel: <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a>
-                    </div>
-                    <% } %>
-                  </div>
-                
-                  <div class="col-sm d-none d-sm-block">
-                    <div class="text-right mb-2">
-                      <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
-                        class="btn btn-primary">
-                        <i class="fas fa-pen-alt"></i>
-                      </a>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <% } %>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<%= for (participant) in participants { %>
+  <%= partial("participants/card.html") %>
+<% } %>
 </div>
 
 

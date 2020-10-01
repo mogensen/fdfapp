@@ -25,7 +25,13 @@
 <%= f.InputTag("FirstName", {label: t("participant.firstname")}) %>
 <%= f.InputTag("LastName", {label: t("participant.lastname")}) %>
 <%= f.InputTag("Phone", {label: t("participant.phone")}) %>
+
+<%= if (participant.MemberNumber != "") { %>
 <%= f.InputTag("MemberNumber", {label: t("participant.memberNumber"), readonly:true}) %>
+<% } else { %>
+<%= f.InputTag("MemberNumber", {label: t("participant.memberNumber")}) %>
+<% } %>
+
 
 <%= if (participant.DateOfBirth && participant.DateOfBirth.Valid) { %>
     <%= f.InputTag("DateOfBirth", {type:"date", value: participant.DateOfBirth.Time, min: "1900-01-01", label: t("participant.dateOfBirth")}) %>

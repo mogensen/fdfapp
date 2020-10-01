@@ -1,10 +1,10 @@
 # Flash mesasges
 - id: "participant.created.success"
-  translation: "Participant was successfully created."
+  translation: "Medlemmet er oprettet. Husk at det skal indmeldes i Carla også"
 - id: "participant.updated.success"
-  translation: "Participant was successfully updated."
+  translation: "Medlemmet er opdateret"
 - id: "participant.destroyed.success"
-  translation: "Participant was successfully destroyed."
+  translation: "Medlemmet er slettet"
 
 #Actions
 - id: "participant.create"
@@ -12,7 +12,7 @@
 
 #Fields
 - id: "participant.iD"
-  translation: iD
+  translation: Id
 - id: "participant.createdAt"
   translation: createdAt
 - id: "participant.updatedAt"
@@ -29,6 +29,8 @@
   translation: Fødselsdag
 - id: "participant.memberNumber"
   translation: Medlems nummer
+- id: "participant.memberNumber.short"
+  translation: Medl. nr.
 - id: "participant.classes"
   translation: classes
 - id: "participant.memberships"

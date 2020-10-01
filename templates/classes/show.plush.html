@@ -16,50 +16,10 @@
   <h2>Deltagere</h2>
 </div>
 
-
-<div class="page-content page-container" id="page-content">
-  <div class="padding">
-    <div class="row">
-      <div class="col-sm-12">
-        <%= for (participant) in class.Participants { %>
-        <div class="list list-row block">
-          <div class="list-item">
-            <div>
-              <span class="w-48 avatar gd-warning">
-                <%= if (image(participant.Image)){ %>
-                <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
-                <% } else { %>
-                <img src="/assets/images/empty-avatar.png"> </span>
-              <% } %>
-              </span>
-
-            </div>
-            <div class="flex">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm">
-                    <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
-                    <div class="item-except text-muted text-sm h-1x">
-                      <span>Født: <%= format(participant.DateOfBirth, "02 Jan 2006") %></span> (<%= age(participant.DateOfBirth)%>)
-
-                    </div>
-
-                    <div class="item-except text-muted text-sm h-1x">
-                      <%= if (participant.Phone) { %>
-                      Tel: <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a>
-                      <% } %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <% } %>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<%= for (participant) in class.Participants { %>
+  <%= partial("participants/card.html") %>
+<% } %>
 </div>
 
 <div class="clearfix"></div>

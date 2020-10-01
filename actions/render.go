@@ -116,8 +116,8 @@ func init() {
 			},
 
 			"age": func(t nulls.Time, classes *models.Classes) string {
-				year, month, _, _, _, _ := diff(t.Time, time.Now())
-				return fmt.Sprintf("%d år, %d måneder", year, month)
+				year, _, _, _, _, _ := diff(t.Time, time.Now())
+				return fmt.Sprintf("%d år", year)
 			},
 
 			// for non-bootstrap form helpers uncomment the lines
