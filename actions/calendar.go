@@ -74,8 +74,10 @@ func getCalenerEvents(class *models.Class) []calEvent {
 	}
 	defer rc.Close()
 
+	// 180 days ago
 	start := time.Now().Add(-time.Duration(180) * 24 * time.Hour)
-	end := time.Now()
+	// 1 day ahead
+	end := time.Now().Add(24 * time.Hour)
 
 	c := gocal.NewParser(rc)
 	c.Start, c.End = &start, &end
