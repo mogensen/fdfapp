@@ -120,6 +120,11 @@ func init() {
 				return fmt.Sprintf("%d år", year)
 			},
 
+			"ageAtActivity": func(t nulls.Time, activity models.Activity) string {
+				year, _, _, _, _, _ := diff(t.Time, activity.Date)
+				return fmt.Sprintf("%d år", year)
+			},
+
 			// for non-bootstrap form helpers uncomment the lines
 			// below and import "github.com/gobuffalo/helpers/forms"
 			// forms.FormKey:     forms.Form,

@@ -1,0 +1,62 @@
+<div class="page-header">
+  <h1>Alle Aktiviteter</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <th><%= t("activity.title") %></th>
+    <th><%= t("activity.date") %></th>
+    <th><%= t("activity.duration") %></th>
+    <th><%= t("activity.participants") %></th>
+    <th><%= t("activity.participantHours") %></th>
+  </thead>
+  <tbody>
+    <%= for (activity) in activities { %>
+    <tr>
+      <td><%= linkTo(activityPath({ activity_id: activity.ID }), {body: activity.Class.Name + " - " + activity.Title}) %></td>
+      <td><%= activity.Date %></td>
+      <td><%= activity.Duration %></td>
+      <td><%= len(activity.Participants) %></td>
+      <td><%= partipantHours(activity) %></td>
+    </tr>
+    <tr>
+      <td colspan=5>
+      <b>Deltagere</b>
+        <table class="table">
+        <%= for (participant) in activity.Participants { %>
+          <tr>
+            <td class="w-25"><%= participant.FirstName %> <%= participant.LastName %></td>
+            <td><%= ageAtActivity(participant.DateOfBirth,activity) %></td>
+          </tr>
+        <% } %>
+      </table>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="page-header">
+  <h2>Summary</h2>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <th>Deltager timer: ukendt </th>
+    <th>Deltager timer: 3-5 </th>
+    <th>Deltager timer: 6-18 </th>
+    <th>Deltager timer: 19-24 </th>
+    <th>Deltager timer: 25+ </th>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= report.AgeUnknown %></td>
+      <td> <%= report.Age3_5 %></td>
+      <td> <%= report.Age6_18 %></td>
+      <td> <%= report.Age19_24 %></td>
+      <td> <%= report.Age25_up %></td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+
