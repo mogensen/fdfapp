@@ -84,6 +84,7 @@ func App() *buffalo.App {
 
 		app.GET("/admin", AdminShow)
 		app.GET("/report", ReportShow)
+		app.GET("/report/{year}", ReportYearShow)
 
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}

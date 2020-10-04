@@ -120,6 +120,11 @@ func init() {
 				return fmt.Sprintf("%d år", year)
 			},
 
+			"grownup": func(p models.Participant) bool {
+				year, _, _, _, _, _ := diff(p.DateOfBirth.Time, time.Now())
+				return year >= 18
+			},
+
 			"ageAtActivity": func(t nulls.Time, activity models.Activity) string {
 				year, _, _, _, _, _ := diff(t.Time, activity.Date)
 				return fmt.Sprintf("%d år", year)

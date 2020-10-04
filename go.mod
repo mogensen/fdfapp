@@ -3,7 +3,9 @@ module github.com/mogensen/fdfapp
 go 1.12
 
 require (
+	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/apognu/gocal v0.4.1
+	github.com/brianvoe/gofakeit v3.18.0+incompatible
 	github.com/dimchansky/utfbom v1.1.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/gobuffalo/buffalo v0.15.5
@@ -24,12 +26,13 @@ require (
 	github.com/gobuffalo/validate/v3 v3.3.0
 	github.com/gocarina/gocsv v0.0.0-20190927101021-3ecffd272576
 	github.com/gofrs/uuid v3.2.0+incompatible
+	github.com/ipsn/go-adorable v1.0.0
 	github.com/markbates/grift v1.5.0
 	github.com/pkg/errors v0.9.1
-	github.com/stretchr/testify v1.5.1
 	github.com/unrolled/secure v1.0.0
 	golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59
 	golang.org/x/image v0.0.0-20200119044424-58c23975cae1 // indirect
 	golang.org/x/text v0.3.3 // indirect
+	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )

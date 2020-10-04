@@ -1,21 +1,40 @@
 package actions
 
 import (
+	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/mogensen/fdfapp/models"
 )
 
-// AdminShow default implementation.
+// ReportShow default implementation.
 func ReportShow(c buffalo.Context) error {
+	year := time.Now().Year()
+	return c.Redirect(302, fmt.Sprintf("/report/%d", year))
+}
 
+// ReportYearShow default implementation.
+func ReportYearShow(c buffalo.Context) error {
 	c.Set("TIME_FORMAT", "02 Jan 2006")
 	activities := &models.Activities{}
 
-	// Paginate results. Params "page" and "per_page" control pagination.
-	// Default values are "page=1" and "per_page=20".
-	q := scope(c)
+	year := time.Now().Year()
+	var err error
+	yearParam := c.Param("year")
+	if yearParam != "" {
+		year, err = strconv.Atoi(yearParam)
+		if err != nil {
+			return err
+		}
+		if year < 2000 || year > 2050 {
+			return fmt.Errorf("Year is not supported: %d", year)
+		}
+	}
+
+	then := time.Date(year, 1, 1, 0, 0, 0, 0, time.Local)
+	q := scope(c).Where("date >= ?", then).Where("date <= ?", then.AddDate(1, 0, 0)).Order("date desc")
 
 	// Retrieve all Activities from the DB
 	if err := q.Eager().All(activities); err != nil {
@@ -56,6 +75,7 @@ func ReportShow(c buffalo.Context) error {
 			if years >= 19 && years <= 24 {
 				report.Age19_24 += activity.Duration
 			}
+
 			if years >= 25 {
 				report.Age25_up += activity.Duration
 			}

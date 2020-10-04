@@ -38,7 +38,7 @@ func (v ActivitiesResource) List(c buffalo.Context) error {
 
 	// Paginate results. Params "page" and "per_page" control pagination.
 	// Default values are "page=1" and "per_page=20".
-	q := scope(c).PaginateFromParams(c.Params())
+	q := scope(c).Order("date desc").PaginateFromParams(c.Params())
 
 	if c.Param("class_id") != "" {
 		q = q.Where("class_id = (?)", c.Param("class_id"))

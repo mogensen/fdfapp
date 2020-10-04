@@ -12,13 +12,28 @@
 </div>
 
 <br />
+<div class="d-print-none">
+  <h2>Ledere</h2>
+</div>
+
+<div class="container">
+<%= for (participant) in class.Participants { %>
+  <%= if (grownup(participant)) { %>
+    <%= partial("participants/card.html") %>
+  <% } %>
+<% } %>
+</div>
+
+<br />
 <div>
   <h2>Deltagere</h2>
 </div>
 
 <div class="container">
 <%= for (participant) in class.Participants { %>
-  <%= partial("participants/card.html") %>
+  <%= if (! grownup(participant)) { %>
+    <%= partial("participants/card.html") %>
+  <% } %>
 <% } %>
 </div>
 
