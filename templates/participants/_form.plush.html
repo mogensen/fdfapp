@@ -7,21 +7,16 @@
 <% } %>
 </span>
 
-
-
 <%= if (image(participant.Image)) { %>
-    
     <a href="<%= pathFor(editParticipantsImagePath({ participants_image_id: participant.Image.ID })) %>" class="btn btn-primary image-icon">
         <i class="fas fa-pen-alt"></i>
     </a>
-    
 <% } else { %>
-
     <a href="<%= pathFor(newParticipantsImagesPath({ participant_id: participant.ID })) %>" class="btn btn-primary image-icon">
         <i class="fas fa-plus"></i>
     </a>
-    
 <% } %>
+
 <%= f.InputTag("FirstName", {label: t("participant.firstname")}) %>
 <%= f.InputTag("LastName", {label: t("participant.lastname")}) %>
 <%= f.InputTag("Phone", {label: t("participant.phone")}) %>

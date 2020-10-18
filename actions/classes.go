@@ -54,10 +54,13 @@ func (v ClassesResource) Show(c buffalo.Context) error {
 	class := &models.Class{}
 
 	// To find the Class the parameter class_id is used.
-	if err := scope(c).Eager("Participants.Image").Find(class, c.Param("class_id")); err != nil {
+	if err := scope(c).Eager("Participants.Image").Eager("Participants.Memberships").Find(class, c.Param("class_id")); err != nil {
 		return c.Error(404, err)
 	}
 
+	if err := bindClasses(c); err != nil {
+		return errors.New("No Classes found")
+	}
 	c.Set("participant", &models.Participant{})
 
 	return c.Render(200, r.Auto(c, class))

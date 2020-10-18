@@ -1,0 +1,43 @@
+.badge-Numling {
+    color: white;
+    background-color: #9182C8;
+}
+.badge-Pusling {
+    color: white;
+    background-color: #FFB91E;
+}
+.badge-Tumling {
+    color: white;
+    background-color: #D22832;
+}
+.badge-Pilt {
+    color: white;
+    background-color: #7DC855;
+}
+.badge-Væbner {
+    color: white;
+    background-color: #4678C8;
+}
+.badge-Seniorvæbner {
+    color: white;
+    background-color: #7D878C;
+}
+.badge-Senior {
+    color: white;
+    background-color: #FF733C;
+}
+.badge-Leder {
+    color: white;
+    background-color: #003255;
+}
+
+.badge-class {
+    display: block;
+    margin-bottom: 10px;
+}
+
+@media (max-width: $small) {
+    .badge-class {
+        display: inline;
+    }
+}

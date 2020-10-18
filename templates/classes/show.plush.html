@@ -16,12 +16,14 @@
   <h2>Ledere</h2>
 </div>
 
-<div class="container">
-<%= for (participant) in class.Participants { %>
-  <%= if (grownup(participant)) { %>
-    <%= partial("participants/card.html") %>
-  <% } %>
-<% } %>
+<div class="card-body contacts_body">
+  <ul class="contacts">
+    <%= for (participant) in class.Participants { %>
+      <%= if (grownup(participant)) { %>
+        <%= partial("participants/new_card.html") %>
+      <% } %>
+    <% } %>
+  </ul>
 </div>
 
 <br />
@@ -29,12 +31,14 @@
   <h2>Deltagere</h2>
 </div>
 
-<div class="container">
-<%= for (participant) in class.Participants { %>
-  <%= if (! grownup(participant)) { %>
-    <%= partial("participants/card.html") %>
-  <% } %>
-<% } %>
+<div class="card-body contacts_body">
+  <ul class="contacts">
+    <%= for (participant) in class.Participants { %>
+      <%= if (! grownup(participant)) { %>
+        <%= partial("participants/new_card.html") %>
+      <% } %>
+    <% } %>
+  </ul>
 </div>
 
 <div class="clearfix"></div>

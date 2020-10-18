@@ -13,7 +13,7 @@ import (
 	"github.com/mogensen/fdfapp/models"
 )
 
-func createParticipant(user models.User, year int, class models.Class) {
+func createParticipant(user models.User, year int, classes ...models.Class) {
 	dobStr := randomdata.FullDateInRange(fmt.Sprintf("%d-01-01", year-1), fmt.Sprintf("%d-12-31", year))
 	fmt.Printf("dob %s\n", dobStr)
 	dob, err := time.Parse("Monday 2 Jan 2006", dobStr)
@@ -32,10 +32,12 @@ func createParticipant(user models.User, year int, class models.Class) {
 	}
 
 	models.DB.Create(&participant)
-	models.DB.Create(&models.ClassMembership{
-		ClassID:       class.ID,
-		ParticipantID: participant.ID,
-	})
+	for _, class := range classes {
+		models.DB.Create(&models.ClassMembership{
+			ClassID:       class.ID,
+			ParticipantID: participant.ID,
+		})
+	}
 
 	avatar := adorable.Random()
 

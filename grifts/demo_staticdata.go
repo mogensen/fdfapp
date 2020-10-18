@@ -27,7 +27,7 @@ func randActivityTitle() string {
 		"Blepaintball",
 	}
 
-	actPostfix := []string{"møde", "løb", "fest", "mærke"}
+	actPostfix := []string{"møde", "løb", "fest", "mærke", "escaperoom", ""}
 
 	return fmt.Sprintf("%s-%s", actFirst[rand.Intn(len(actFirst))], actPostfix[rand.Intn(len(actPostfix))])
 }

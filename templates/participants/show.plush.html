@@ -2,14 +2,59 @@
   <h1><%= participant.FirstName %> <%= participant.LastName %></h1>
 </div>
 
-<%= partial("participants/card.html") %>
+<div class="row">
+    <div class="col-auto">
+      <span class="avatar w-profile">
+        <%= if (image(participant.Image)) { %>
+            <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
+        <% } else { %>
+            <img src="/assets/images/empty-avatar.png"> </span>
+        <% } %>
+        </span>
 
-<div class="flex">
-  <div class="d-block">
-      <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
-        class="btn btn-primary">
-        <i class="fas fa-pen-alt"></i> Rediger
-      </a>
+        <%= if (image(participant.Image)) { %>
+            <a href="<%= pathFor(editParticipantsImagePath({ participants_image_id: participant.Image.ID })) %>" class="btn btn-primary image-icon">
+                <i class="fas fa-pen-alt"></i>
+            </a>
+        <% } else { %>
+            <a href="<%= pathFor(newParticipantsImagesPath({ participant_id: participant.ID })) %>" class="btn btn-primary image-icon">
+                <i class="fas fa-plus"></i>
+            </a>
+        <% } %>
+      </span>
+    </div>
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <label><b><%= t("participant.memberNumber") %></b></label>
+            </div>
+            <div class="col-sm-6">
+                <p><%= participant.MemberNumber %></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label><b><%= t("participant.phone") %></b></label>
+            </div>
+            <div class="col-sm-6">
+                <p><%= participant.Phone %></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label><b><%= t("participant.dateOfBirth") %></b></label>
+            </div>
+            <div class="col-sm-6">
+                <p><%= format(participant.DateOfBirth, "02 Jan 2006") %> (<%= age(participant.DateOfBirth)%>)</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-auto">
+    <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
+      class="profile-edit-btn">
+      <i class="fas fa-pen-alt"></i> Rediger
+    </a>
   </div>
 </div>
 

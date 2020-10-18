@@ -1,4 +1,12 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
+$small: 575px;
+$medium: 900px;
+
 @import "buffalo";
+@import "card";
+@import "profile";
+@import "activity";
+@import "badges";
+

@@ -38,6 +38,9 @@ func (v ParticipantsResource) List(c buffalo.Context) error {
 	if err := q.All(participants); err != nil {
 		return err
 	}
+	if err := bindClasses(c); err != nil {
+		return errors.New("No Classes found")
+	}
 
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)

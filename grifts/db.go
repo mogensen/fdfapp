@@ -51,7 +51,7 @@ var _ = grift.Namespace("db", func() {
 		}
 
 		classes := models.Classes{
-			{UserID: user.ID, Name: "Puslinge"},
+			{UserID: user.ID, Name: "Pusling"},
 			{UserID: user.ID, Name: "Tumling"},
 			{UserID: user.ID, Name: "Pilt"},
 			{UserID: user.ID, Name: "Væbner"},

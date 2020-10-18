@@ -28,7 +28,7 @@ var _ = grift.Namespace("demo", func() {
 		}
 
 		classes := models.Classes{
-			{UserID: user.ID, Name: "Puslinge"},
+			{UserID: user.ID, Name: "Pusling"},
 			{UserID: user.ID, Name: "Tumling"},
 			{UserID: user.ID, Name: "Pilt"},
 			{UserID: user.ID, Name: "Væbner"},
@@ -44,6 +44,11 @@ var _ = grift.Namespace("demo", func() {
 			classes[i] = m
 		}
 
+		leder := models.Class{UserID: user.ID, Name: "Leder"}
+		if err := models.DB.Create(&leder); err != nil {
+			return errors.WithStack(err)
+		}
+
 		year := (time.Now().Year() - 6)
 		grownUpYear := (time.Now().Year() - 22)
 
@@ -53,8 +58,8 @@ var _ = grift.Namespace("demo", func() {
 			}
 
 			// Create two grown ups in each Class
-			createParticipant(user, grownUpYear, class)
-			createParticipant(user, grownUpYear-10, class)
+			createParticipant(user, grownUpYear, class, leder)
+			createParticipant(user, grownUpYear-10, class, leder)
 
 			year -= 2
 		}

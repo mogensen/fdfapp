@@ -31,7 +31,6 @@ h1 {
 }
 
 h2 {
-
 	color: rgb(69, 104, 137);
 	display: inline-block;
 	margin: 0;
@@ -128,15 +127,6 @@ table.table tbody tr td {
 }
 
 
-.block,
-.card {
-    background: #eee;
-    border-width: 0;
-    border-radius: .25rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
-    margin-bottom: 0.6rem
-}
-
 .avatar {
     position: relative;
     line-height: 1;
@@ -161,86 +151,10 @@ table.table tbody tr td {
     width: 100%
 }
 
-.gd-primary {
-    color: #fff;
-    border: none;
-    background: #448bff linear-gradient(45deg, #448bff, #44e9ff)
-}
-
-.gd-success {
-    color: #fff;
-    border: none;
-    background: #31c971 linear-gradient(45deg, #31c971, #3dc931)
-}
-
-.gd-info {
-    color: #fff;
-    border: none;
-    background: #14bae4 linear-gradient(45deg, #14bae4, #14e4a6)
-}
-
-.gd-warning {
-    color: #fff;
-    border: none;
-    background: #f4c414 linear-gradient(45deg, #f4c414, #f45414)
-}
-
-.list {
-    padding-left: 0;
-    padding-right: 0
-}
-
-.list-item {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word
-}
-
-.list-row .list-item {
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: .75rem .625rem
-}
-
-.list-row .list-item>* {
-    padding-left: .625rem;
-    padding-right: .625rem
-}
-
 .no-wrap {
     white-space: nowrap
 }
 
-.text-color {
-    color: #5e676f
-}
-
-.text-gd {
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    text-fill-color: transparent
-}
-
-.text-sm {
-    font-size: .825rem
-}
-
-.h-1x {
-    height: 1.25rem;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical
-}
 
 .w-48 {
     width: 48px !important;
@@ -257,6 +171,19 @@ table.table tbody tr td {
     height: 96px !important
 }
 
+$profile-img-size: 250px;
+.w-profile  {
+    width: $profile-img-size !important;
+    height: $profile-img-size !important
+}
+
+@media (max-width: $small) {
+    $profile-img-size: 150px;
+    .w-profile  {
+        width: $profile-img-size !important;
+        height: $profile-img-size !important
+    }
+}
 
 a:link {
     text-decoration: none
