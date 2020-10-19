@@ -11,16 +11,14 @@
     <%= for (class) in classes { %>
       <tr>
         <td>
-         <h4><%= linkTo(classPath({ class_id: class.ID }), { body: class.Name}) %></h4>
+         <h5><%= linkTo(classPath({ class_id: class.ID }), { body: class.Name}) %></h5>
         </td>
 
         <td>
-
-            <%= buttonGroup(true) { %>
-              <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(calendarShowPath({ class_id: class.ID }))) %>
-              <%= buttonGroupButton(t("action.showActivities"), "calendar-alt", pathFor(activitiesPath({ class_id: class.ID }))) %>
-            <% } %>
-
+          <%= buttonGroup(true) { %>
+            <%= buttonGroupButton(t("action.createActivity"), "plus", pathFor(calendarShowPath({ class_id: class.ID }))) %>
+            <%= buttonGroupButton(t("action.showActivities"), "calendar-alt", pathFor(activitiesPath({ class_id: class.ID }))) %>
+          <% } %>
         </td>
       </tr>
     <% } %>

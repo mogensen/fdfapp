@@ -1,26 +1,27 @@
 <li>
   <div class="d-flex align-content-start flex-row justify-content-between flex-wrap">
-    <div class="img_cont  p-2 ">
+
+    <div class="user_info  p-2 flex-grow-1 row userInfo">
+      <div class="img_cont col col-auto ">
       <%= if (image(participant.Image)){ %>
         <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>" class="rounded-circle user_img">
       <% } else { %>
         <img src="/assets/images/empty-avatar.png"  class="rounded-circle user_img">
       <% } %>
-    </div>
-    
-    <div class="user_info  p-2 flex-grow-1">
-      <span>
-      <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
-      </span>
-      <%= if (participant.MemberNumber) { %>
-        <p class="text-muted small text-truncate"><%= t("participant.memberNumber.short") %> <%= participant.MemberNumber %></p>
-      <% } %>
-      <%= if (participant.Phone) { %>
-        <p class="text-muted small text-truncate">Tlf <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a></p> 
-      <% } %>
-      <%= if (participant.DateOfBirth) { %>
-        <p class="text-muted small text-truncate">Født <%= format(participant.DateOfBirth, "02 Jan 2006") %> (<%= age(participant.DateOfBirth)%>)</p>    
-      <% } %>
+      </div>
+
+      <div class="user_cont col col-auto text-truncate">
+        <%= linkTo(participantPath({ participant_id: participant.ID }), { body:  participant.FirstName + " " + participant.LastName}) %>
+        <%= if (participant.MemberNumber) { %>
+          <p class="text-muted small text-truncate"><%= t("participant.memberNumber.short") %> <%= participant.MemberNumber %></p>
+        <% } %>
+        <%= if (participant.Phone) { %>
+          <p class="text-muted small text-truncate">Tlf <a href="tel://<%= participant.Phone %>"><%= participant.Phone %></a></p>
+        <% } %>
+        <%= if (participant.DateOfBirth) { %>
+          <p class="text-muted small text-truncate">Født <%= format(participant.DateOfBirth, "02 Jan 2006") %> (<%= age(participant.DateOfBirth)%>)</p>
+        <% } %>
+      </div>
     </div>
 
     <div class="class_info p-2 ml-auto">
@@ -30,6 +31,6 @@
         <span class="badge badge-<%= c.Name %> badge-class" ><%= c.Name %></span>
       <% } %>
     </div>
-  
+
   </div>
 </li>

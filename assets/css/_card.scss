@@ -12,7 +12,7 @@
 }
 .contacts li {
     width: 100% !important;
-    min-height: 110px !important;
+    min-height: 124px !important;
     padding: 10px;
     margin-bottom: 15px !important;
     background-color: rgba(0, 0, 0, 0.04);;
@@ -47,6 +47,16 @@ $image-size: 90px;
         width: $image-size;
         margin-right: 10px;
     }
+}
+
+div.row.userInfo {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+ 
+div.row.userInfo .user_cont{
+    display: inline-block;
+    float: none !important;
 }
 
 .user_info span {
