@@ -7,6 +7,11 @@
       <%= partial("participants/profile_image.html") %>
       <h1 class="card-title m-t-10"><%= participant.FirstName %> <%= participant.LastName %></h1>
 
+      <a href="<%= pathFor(editParticipantPath({ participant_id: participant.ID })) %>"
+        class="profile-edit-btn">
+        <i class="fas fa-pen-alt"></i> Rediger
+      </a>
+
       </center>
     </div>
     <div class="card-body">
@@ -20,15 +25,15 @@
 </div>
 
 <div class="d-none d-md-block">
-<div class="page-header">
-  <h1><%= participant.FirstName %> <%= participant.LastName %></h1>
-</div>
+  <div class="page-header">
+    <h1><%= participant.FirstName %> <%= participant.LastName %></h1>
+  </div>
 
 
 
-<div class="row">
-  <div class="col-auto">
-      <%= partial("participants/profile_image.html") %>
+  <div class="row">
+    <div class="col-auto">
+        <%= partial("participants/profile_image.html") %>
     </div>
     <div class="col-sm-4">
         <div class="row">

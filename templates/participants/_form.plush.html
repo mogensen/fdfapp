@@ -1,37 +1,27 @@
-<span class="w-96 avatar gd-warning">
-<%= if (image(participant.Image)) { %>
 
-    <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>">
-<% } else { %>
-    <img src="/assets/images/empty-avatar.png"> </span>
-<% } %>
-</span>
+<div class="row">
+    <div class="col-sm-5">
+        <center>
+        <%= partial("participants/profile_image.html") %>
+        </center>
+    </div>
+    <div class="col-md-7">
+        <%= f.InputTag("FirstName", {label: t("participant.firstname")}) %>
+        <%= f.InputTag("LastName", {label: t("participant.lastname")}) %>
+        <%= f.InputTag("Phone", {label: t("participant.phone")}) %>
 
-<%= if (image(participant.Image)) { %>
-    <a href="<%= pathFor(editParticipantsImagePath({ participants_image_id: participant.Image.ID })) %>" class="btn btn-primary image-icon">
-        <i class="fas fa-pen-alt"></i>
-    </a>
-<% } else { %>
-    <a href="<%= pathFor(newParticipantsImagesPath({ participant_id: participant.ID })) %>" class="btn btn-primary image-icon">
-        <i class="fas fa-plus"></i>
-    </a>
-<% } %>
-
-<%= f.InputTag("FirstName", {label: t("participant.firstname")}) %>
-<%= f.InputTag("LastName", {label: t("participant.lastname")}) %>
-<%= f.InputTag("Phone", {label: t("participant.phone")}) %>
-
-<%= if (participant.MemberNumber != "") { %>
-<%= f.InputTag("MemberNumber", {label: t("participant.memberNumber"), readonly:true}) %>
-<% } else { %>
-<%= f.InputTag("MemberNumber", {label: t("participant.memberNumber")}) %>
-<% } %>
+        <%= if (participant.MemberNumber != "") { %>
+        <%= f.InputTag("MemberNumber", {label: t("participant.memberNumber"), readonly:true}) %>
+        <% } else { %>
+        <%= f.InputTag("MemberNumber", {label: t("participant.memberNumber")}) %>
+        <% } %>
 
 
-<%= if (participant.DateOfBirth && participant.DateOfBirth.Valid) { %>
-    <%= f.InputTag("DateOfBirth", {type:"date", value: participant.DateOfBirth.Time, min: "1900-01-01", label: t("participant.dateOfBirth")}) %>
-<% } else { %>
-    <%= f.InputTag("DateOfBirth", {type:"date", min: "1900-01-01", label: t("participant.dateOfBirth")}) %>
-<% } %>
-
+        <%= if (participant.DateOfBirth && participant.DateOfBirth.Valid) { %>
+            <%= f.InputTag("DateOfBirth", {type:"date", value: participant.DateOfBirth.Time, min: "1900-01-01", label: t("participant.dateOfBirth")}) %>
+        <% } else { %>
+            <%= f.InputTag("DateOfBirth", {type:"date", min: "1900-01-01", label: t("participant.dateOfBirth")}) %>
+        <% } %>
+    </div>
+</div>
 <button class="btn btn-success" role="submit"><%= t("action.save") %></button>
