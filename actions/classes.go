@@ -5,6 +5,7 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/pop/v5"
+	"github.com/gofrs/uuid"
 	"github.com/mogensen/fdfapp/models"
 )
 
@@ -40,6 +41,13 @@ func (v ClassesResource) List(c buffalo.Context) error {
 	if err := q.All(classes); err != nil {
 		return err
 	}
+
+	missingEvents := map[uuid.UUID]int{}
+	for _, v := range *classes {
+		calEvents := getCalenerEvents(&v)
+		missingEvents[v.ID] = len(calEvents)
+	}
+	c.Set("missingEvents", missingEvents)
 
 	// Add the paginator to the context so it can be used in the template.
 	c.Set("pagination", q.Paginator)

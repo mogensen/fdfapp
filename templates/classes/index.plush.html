@@ -11,7 +11,12 @@
     <%= for (class) in classes { %>
       <tr>
         <td>
-         <h5><%= linkTo(classPath({ class_id: class.ID }), { body: class.Name}) %></h5>
+          <h5>
+            <%= linkTo(classPath({ class_id: class.ID }), { body: class.Name}) %>
+          </h5>
+          <%= if(missingEvents[class.ID]>0) { %>
+            <span class="badge badge-danger">Mangler: <%= missingEvents[class.ID] %></span>
+          <% } %>
         </td>
 
         <td>

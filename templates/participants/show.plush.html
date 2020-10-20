@@ -1,9 +1,7 @@
 <div class="d-md-none">
 
-
   <div class="card-body">
     <center class="m-t-30">
-
       <%= partial("participants/profile_image.html") %>
       <h1 class="card-title m-t-10"><%= participant.FirstName %> <%= participant.LastName %></h1>
 
@@ -11,25 +9,23 @@
         class="profile-edit-btn">
         <i class="fas fa-pen-alt"></i> Rediger
       </a>
+    </center>
+  </div>
 
-      </center>
-    </div>
-    <div class="card-body">
-      <small class="text-muted"><%= t("participant.memberNumber") %></small>
-      <h6><%= participant.MemberNumber %></h6>
-      <small class="text-muted"><%= t("participant.phone") %></small>
-      <h6><%= participant.Phone %></h6>
-      <small class="text-muted"><%= t("participant.dateOfBirth") %></small>
-      <h6><%= format(participant.DateOfBirth, "02 Jan 2006") %> (<%= age(participant.DateOfBirth)%>)</h6>
-    </div>
+  <div class="card-body">
+    <small class="text-muted"><%= t("participant.memberNumber") %></small>
+    <h6><%= participant.MemberNumber %></h6>
+    <small class="text-muted"><%= t("participant.phone") %></small>
+    <h6><%= participant.Phone %></h6>
+    <small class="text-muted"><%= t("participant.dateOfBirth") %></small>
+    <h6><%= format(participant.DateOfBirth, "02 Jan 2006") %> (<%= age(participant.DateOfBirth)%>)</h6>
+  </div>
 </div>
 
 <div class="d-none d-md-block">
   <div class="page-header">
     <h1><%= participant.FirstName %> <%= participant.LastName %></h1>
   </div>
-
-
 
   <div class="row">
     <div class="col-auto">
