@@ -76,6 +76,13 @@ func getCalenerEvents(class *models.Class) []calEvent {
 
 	// 180 days ago
 	start := time.Now().Add(-time.Duration(180) * 24 * time.Hour)
+
+	// Earlist time that we show events for. (events before this is in the old system)
+	earliest, _ := time.Parse("2006-01-02", "2020-08-01")
+	if earliest.After(start) {
+		start = earliest
+	}
+
 	// 1 day ahead
 	end := time.Now().Add(24 * time.Hour)
 
