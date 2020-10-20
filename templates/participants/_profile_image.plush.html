@@ -1,0 +1,25 @@
+<div class="img-thumbnail">
+  <%= if (image(participant.Image)) { %>
+    <a href="<%= pathFor(editParticipantsImagePath({ participants_image_id: participant.Image.ID })) %>" >
+      <span class="img-thumbnail-container">
+        <%= if (image(participant.Image)) { %>
+          <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>" class="rounded-circle">
+        <% } else { %>
+          <img src="/assets/images/empty-avatar.png" class="rounded-circle">
+        <% } %>
+        <span class="img-thumbnail-button">Upload</span>
+      </span>
+    </a>
+  <% } else { %>
+    <a href="<%= pathFor(newParticipantsImagesPath({ participant_id: participant.ID })) %>">
+      <span class="img-thumbnail-container">
+        <%= if (image(participant.Image)) { %>
+          <img src="<%= pathFor(participantsImagePath({ participants_image_id: participant.Image.ID })) %>" class="rounded-circle">
+        <% } else { %>
+          <img src="/assets/images/empty-avatar.png" class="rounded-circle">
+        <% } %>
+        <span class="img-thumbnail-button">Upload</span>
+      </span>
+    </a>
+  <% } %>
+</div>

@@ -1,8 +1,14 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
+// Screen sizes
 $small: 575px;
 $medium: 900px;
+
+// Image sizes
+$profile-image-size: 250px;
+$list-image-size: 90px;
+$list-image-size-small: 70px;
 
 @import "buffalo";
 @import "card";

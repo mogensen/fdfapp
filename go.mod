@@ -9,7 +9,7 @@ require (
 	github.com/dimchansky/utfbom v1.1.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/gobuffalo/buffalo v0.15.5
-	github.com/gobuffalo/buffalo-pop/v2 v2.2.0
+	github.com/gobuffalo/buffalo-pop/v2 v2.3.0
 	github.com/gobuffalo/envy v1.9.0
 	github.com/gobuffalo/helpers v0.6.1
 	github.com/gobuffalo/mw-csrf v1.0.0
@@ -20,7 +20,7 @@ require (
 	github.com/gobuffalo/packr v1.30.1 // indirect
 	github.com/gobuffalo/packr/v2 v2.8.0
 	github.com/gobuffalo/plush/v4 v4.0.0
-	github.com/gobuffalo/pop/v5 v5.2.4
+	github.com/gobuffalo/pop/v5 v5.3.0
 	github.com/gobuffalo/suite/v3 v3.0.0
 	github.com/gobuffalo/tags v2.1.7+incompatible
 	github.com/gobuffalo/validate/v3 v3.3.0
