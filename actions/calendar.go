@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/apognu/gocal"
@@ -109,7 +110,7 @@ func getCalenerEvents(class models.Class) []calEvent {
 			Description: event.Summary,
 			Start:       event.Start,
 			End:         event.End,
-			Location:    event.Location,
+			Location:    strings.ReplaceAll(event.Location, "\\n", ", "),
 			Duration:    event.End.Sub(*event.Start).Hours(),
 		})
 	}
