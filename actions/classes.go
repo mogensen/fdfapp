@@ -43,9 +43,9 @@ func (v ClassesResource) List(c buffalo.Context) error {
 	}
 
 	missingEvents := map[uuid.UUID]int{}
-	for _, v := range *classes {
-		calEvents := getCalenerEvents(&v)
-		missingEvents[v.ID] = len(calEvents)
+	for _, class := range *classes {
+		calEvents, _ := getFilteredEvents(c, class)
+		missingEvents[class.ID] = len(calEvents)
 	}
 	c.Set("missingEvents", missingEvents)
 

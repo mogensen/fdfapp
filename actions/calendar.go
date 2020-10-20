@@ -23,13 +23,25 @@ func CalendarShow(c buffalo.Context) error {
 		return c.Error(404, err)
 	}
 
-	events := getCalenerEvents(class)
+	filteredEvents, err := getFilteredEvents(c, *class)
+	if err != nil {
+		c.Logger().Error(err)
+	}
 
+	c.Set("class", class)
+	c.Set("events", filteredEvents)
+
+	return c.Render(200, r.HTML("calendar/show.html"))
+}
+
+func getFilteredEvents(c buffalo.Context, class models.Class) ([]calEvent, error) {
+
+	events := getCalenerEvents(class)
 	activities := &models.Activities{}
 
 	// Retrieve all Activities from the DB
-	if err := scope(c).Where("class_id = (?)", c.Param("class_id")).All(activities); err != nil {
-		return err
+	if err := scope(c).Where("class_id = (?)", class.ID).All(activities); err != nil {
+		return nil, err
 	}
 	filteredEvents := []calEvent{}
 	for _, event := range events {
@@ -38,11 +50,7 @@ func CalendarShow(c buffalo.Context) error {
 			filteredEvents = append(filteredEvents, event)
 		}
 	}
-
-	c.Set("class", class)
-	c.Set("events", filteredEvents)
-
-	return c.Render(200, r.HTML("calendar/show.html"))
+	return filteredEvents, nil
 }
 
 func eventHasActivity(e calEvent, activities *models.Activities) bool {
@@ -57,7 +65,7 @@ func eventHasActivity(e calEvent, activities *models.Activities) bool {
 	return false
 }
 
-func getCalenerEvents(class *models.Class) []calEvent {
+func getCalenerEvents(class models.Class) []calEvent {
 	events := []calEvent{}
 
 	if !class.Calendar.Valid {
