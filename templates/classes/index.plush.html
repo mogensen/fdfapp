@@ -14,7 +14,10 @@
           <h5>
             <%= linkTo(classPath({ class_id: class.ID }), { body: class.Name}) %>
           </h5>
-          <%= if(missingEvents[class.ID]>0) { %>
+          <%= if(missingEvents[class.ID] > 0 && missingEvents[class.ID] <= 3) { %>
+            <span class="badge badge-warning">Mangler: <%= missingEvents[class.ID] %></span>
+          <% } %>
+          <%= if(missingEvents[class.ID] >= 4) { %>
             <span class="badge badge-danger">Mangler: <%= missingEvents[class.ID] %></span>
           <% } %>
         </td>
