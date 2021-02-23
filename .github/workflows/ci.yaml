@@ -44,7 +44,7 @@ jobs:
           go mod download
           buffalo version
 
-      - name: build and run test
+      - name: Build and run test
         run: |
           buffalo test
         env:

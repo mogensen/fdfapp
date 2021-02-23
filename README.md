@@ -1,5 +1,7 @@
 # FDFapp
 
+[![Build and Test](https://github.com/mogensen/fdfapp/actions/workflows/ci.yaml/badge.svg)](https://github.com/mogensen/fdfapp/actions/workflows/ci.yaml)
+
 This application is meant to make it easy to report participants for each activity in you local FDF group.
 
 ## Database Setup
