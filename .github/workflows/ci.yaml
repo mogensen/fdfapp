@@ -27,6 +27,9 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
 
     name: Build & Test
     steps:
@@ -34,17 +37,17 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        uses: actions/setup-go@v2-beta
+        uses: actions/setup-go@v2
         with:
-          go-version: '^1.14.0'
+          go-version: '1.16'
       -
         name: Download dependencies
         run: go mod download
-      - 
+      -
         name: Install buffalo
         run: go get github.com/gobuffalo/buffalo/buffalo
       -
         name: Build & Test
         run: |
-          export TEST_DATABASE_URL="postgres://postgres:postgres@postgres:5432/fdfapp_test?sslmode=disable"
+          export TEST_DATABASE_URL="postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable"
           buffalo test
