@@ -4,8 +4,9 @@ go 1.12
 
 require (
 	github.com/Pallinder/go-randomdata v1.2.0
-	github.com/apognu/gocal v0.4.1
+	github.com/apognu/gocal v0.8.0
 	github.com/brianvoe/gofakeit v3.18.0+incompatible
+	github.com/channelmeter/iso8601duration v0.0.0-20150204201828-8da3af7a2a61 // indirect
 	github.com/dimchansky/utfbom v1.1.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/gobuffalo/buffalo v0.15.5

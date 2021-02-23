@@ -8,46 +8,44 @@ on:
       - '*'
 jobs:
   build:
-    # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
-    container: node:10.18-jessie
-
-    # Service containers to run with `container-job`
+    strategy:
+      matrix:
+        include:
+          - go_version: "1.15"
+          - go_version: "1.16"
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
+        image: ghcr.io/infrastructure-as-code/postgres:12-alpine
         env:
-          POSTGRES_PASSWORD: postgres
-        # Set health checks to wait until postgres has started
+          SSL_ONLY: "false"
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: p0stgr3s
+        ports:
+          - "5432:5432"
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          # Maps tcp port 5432 on service container to the host
-          - 5432:5432
-
-    name: Build & Test
     steps:
-      -
+      - uses: actions/checkout@v2
         name: Checkout
-        uses: actions/checkout@v2
-      -
-        uses: actions/setup-go@v2
+
+      - uses: actions/setup-go@v2
+        name: Setup Go
         with:
-          go-version: '1.16'
-      -
-        name: Download dependencies
-        run: go mod download
-      -
-        name: Install buffalo
-        run: go get github.com/gobuffalo/buffalo/buffalo
-      -
-        name: Build & Test
+          go-version: ${{ matrix.go_version }}
+
+      - name: Install buffalo
         run: |
-          export TEST_DATABASE_URL="postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable"
+          go get github.com/gobuffalo/buffalo/buffalo
+          go mod download
+          buffalo version
+
+      - name: build and run test
+        run: |
           buffalo test
+        env:
+          TEST_DATABASE_URL: postgres://postgres:p0stgr3s@localhost:5432/postgres?sslmode=disable"

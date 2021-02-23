@@ -37,7 +37,7 @@ func CalendarShow(c buffalo.Context) error {
 
 func getFilteredEvents(c buffalo.Context, class models.Class) ([]calEvent, error) {
 
-	events := getCalenerEvents(class)
+	events := getCalenerEvents(c, class)
 	activities := &models.Activities{}
 
 	// Retrieve all Activities from the DB
@@ -66,7 +66,7 @@ func eventHasActivity(e calEvent, activities *models.Activities) bool {
 	return false
 }
 
-func getCalenerEvents(class models.Class) []calEvent {
+func getCalenerEvents(c buffalo.Context, class models.Class) []calEvent {
 	events := []calEvent{}
 
 	if !class.Calendar.Valid {
@@ -79,7 +79,7 @@ func getCalenerEvents(class models.Class) []calEvent {
 
 	rc, err := downloadFile(class.Calendar.String)
 	if err != nil {
-		panic(err)
+		c.Logger().Error(err)
 	}
 	defer rc.Close()
 
@@ -95,15 +95,19 @@ func getCalenerEvents(class models.Class) []calEvent {
 	// 1 day ahead
 	end := time.Now().Add(24 * time.Hour)
 
-	c := gocal.NewParser(rc)
-	c.Start, c.End = &start, &end
-	c.Parse()
+	parser := gocal.NewParser(rc)
+	parser.Start = &start
+	parser.End = &end
+	err = parser.Parse()
+	if err != nil {
+		c.Logger().Errorf("Error in cal parsing: %s\n", err)
+	}
 
-	sort.Slice(c.Events, func(i, j int) bool {
-		return c.Events[i].Start.After(*(c.Events[j].Start))
+	sort.Slice(parser.Events, func(i, j int) bool {
+		return parser.Events[i].Start.After(*(parser.Events[j].Start))
 	})
 
-	for _, event := range c.Events {
+	for _, event := range parser.Events {
 
 		events = append(events, calEvent{
 			Summary:     event.Summary,
